@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>투자 기준 20가지 – 좋은 기업을 한눈에 고르는 핵심 체크리스트</title>
+
+  <style>
+    :root {
+      --bg: #f5f5f7;
+      --text-main: #111;
+      --text-sub: #555;
+      --card: #ffffff;
+      --border: #e2e2e7;
+      --radius: 18px;
+      --accent: #2563eb;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    .wrap {
+      max-width: 900px;
+      margin: auto;
+      padding: 22px;
+    }
+
+    /* BACK BUTTON */
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 18px;
+      padding: 8px 14px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--text-main);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      transition: 0.2s;
+    }
+
+    .back-btn:hover {
+      background: #eef2ff;
+      border-color: #c7d2fe;
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 30px 20px 15px;
+    }
+    .hero h1 {
+      font-size: 1.9rem;
+      font-weight: 700;
+    }
+    .hero p {
+      color: var(--text-sub);
+      font-size: 1rem;
+      margin-top: 8px;
+    }
+
+    /* Category Cards */
+    .section-title {
+      margin-top: 50px;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .card {
+      background: var(--card);
+      padding: 20px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      font-size: 1.1rem;
+    }
+
+    .card ul {
+      padding-left: 18px;
+      margin: 12px 0 0;
+      color: var(--text-sub);
+    }
+
+    /* Accordion */
+    .accordion {
+      margin-top: 40px;
+    }
+
+    .accordion-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .accordion-header {
+      padding: 16px 18px;
+      cursor: pointer;
+      font-weight: 600;
+      position: relative;
+    }
+
+    .accordion-header::after {
+      content: "＋";
+      position: absolute;
+      right: 20px;
+      transition: 0.2s;
+    }
+
+    .accordion-header.active::after {
+      content: "−";
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 18px;
+      color: var(--text-sub);
+      transition: max-height 0.3s ease;
+    }
+
+    .accordion-content p {
+      margin: 14px 0 18px;
+    }
+
+    /* CTA BOX */
+    .cta-box {
+      background: #fff7e6;
+      padding: 20px;
+      margin-top: 50px;
+      border-radius: var(--radius);
+      border-left: 6px solid #ffa940;
+    }
+
+    .cta-box h3 {
+      margin-top: 0;
+    }
+  </style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <!-- BACK BUTTON -->
+  <button class="back-btn" onclick="history.back()">← 앞의 글로 돌아가기</button>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>좋은 기업을 한눈에 고르는 20가지 투자 기준</h1>
+    <p>성장성·수익성·현금흐름·해자·리스크까지<br>기업 분석 핵심을 1페이지로 정리했습니다.</p>
+  </section>
+
+  <!-- CATEGORY CARDS -->
+  <h2 class="section-title">📌 A. 기본 체력 & 성장성</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>기업의 기초 체력 확인</h3>
+      <ul>
+        <li>시가총액 필터</li>
+        <li>매출 3년 성장 여부</li>
+        <li>EPS · FCF · 이익률 추세</li>
+        <li>TAM · CAGR · 점유율 변화</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 class="section-title">📌 B. 수익성 · 밸류에이션 · 경쟁력</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>돈을 잘 버는 구조인가?</h3>
+      <ul>
+        <li>매출총이익률 / 영업이익률 / 순이익률</li>
+        <li>FCF 전환율</li>
+        <li>PER · PSR · EV/EBITDA 비교</li>
+        <li>경제적 해자(Moat) & 가격 결정력</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 class="section-title">📌 C. 수급 · 모멘텀 · 리스크 · 타이밍</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>언제 사야 하는가?</h3>
+      <ul>
+        <li>기관 수급 추세</li>
+        <li>애널리스트 리비전</li>
+        <li>위험요소(규제·공급망·원자재)</li>
+        <li>200일선 회복 등 추세 신호</li>
+        <li>Bull/Base/Bear 시나리오</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ACCORDION -->
+  <div class="accordion">
+    <div class="accordion-item">
+      <div class="accordion-header">1. 1차 스크리닝 – 기본 체력 확인</div>
+      <div class="accordion-content"><p>시총 10억 달러 이상 + 매출 3년 성장 기업만 통과.</p></div>
+    </div>
+
+    <div class="accordion-item">
+      <div class="accordion-header">2. 성장 필터 – 실적이 진짜 커지는가?</div>
+      <div class="accordion-content"><p>EPS, FCF, 영업이익률이 3년 연속 증가.</p></div>
+    </div>
+  </div>
+
+  <!-- CTA BOX -->
+  <div class="cta-box">
+    <h3>🔗 더 깊은 기업 분석은 웹사이트에서 계속 업데이트됩니다</h3>
+    <p>이 기준들은 앞으로도 꾸준히 확장 예정입니다.<br>
+       더 전문적인 리포트·기업 분석·투자 데이터가 궁금하다면<br>
+       <strong>웹사이트를 참고하세요.</strong></p>
+  </div>
+
+</div>
+
+<script>
+  // Accordion 기능
+  const headers = document.querySelectorAll(".accordion-header");
+
+  headers.forEach(header => {
+    header.addEventListener("click", () => {
+      header.classList.toggle("active");
+
+      const content = header.nextElementSibling;
+      if (content.style.maxHeight) {
+        content.style.maxHeight = null;
+      } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

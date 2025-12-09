@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>오일 핵심 지표별 롱/숏 디시전 테이블</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-soft: #020617;
+      --card: #020617;
+      --card-soft: #020617;
+      --border-soft: #1f2937;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --long: #22c55e;
+      --short: #f97373;
+      --neutral: #eab308;
+      --text-main: #e5e7eb;
+      --text-sub: #9ca3af;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 32px 12px 40px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+        system-ui, sans-serif;
+      background: radial-gradient(circle at top, #0f172a 0, #020617 55%);
+      color: var(--text-main);
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .page-header {
+      margin-bottom: 28px;
+    }
+
+    .page-title {
+      font-size: clamp(22px, 4vw, 30px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .page-chip {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--text-sub);
+    }
+
+    .page-desc {
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+
+    .grid {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .card {
+      background: linear-gradient(
+        135deg,
+        rgba(15, 23, 42, 0.95),
+        rgba(15, 23, 42, 0.98)
+      );
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      padding: 16px 14px 14px;
+    }
+
+    .card-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-title span.index {
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(15, 118, 110, 0.25);
+      color: #a5f3fc;
+      border: 1px solid rgba(34, 211, 238, 0.4);
+    }
+
+    .card-sub {
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    /* 테이블 공통 스타일 */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      background: radial-gradient(circle at top left,#020617,#020617);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 680px; /* 모바일에서 가로 스크롤 허용 */
+      font-size: 12px;
+    }
+
+    thead {
+      background: linear-gradient(
+        90deg,
+        rgba(15, 23, 42, 0.95),
+        rgba(15, 23, 42, 0.9)
+      );
+    }
+
+    th,
+    td {
+      padding: 7px 10px;
+      text-align: left;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.85);
+      vertical-align: top;
+    }
+
+    th {
+      font-weight: 600;
+      color: #cbd5f5;
+      white-space: nowrap;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(15, 23, 42, 0.75);
+    }
+
+    tbody tr:nth-child(odd) {
+      background: rgba(15, 23, 42, 0.4);
+    }
+
+    td.text-sub {
+      color: var(--text-sub);
+    }
+
+    /* 뱃지 */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 52px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .badge-long {
+      background: rgba(34, 197, 94, 0.12);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.45);
+    }
+
+    .badge-short {
+      background: rgba(248, 113, 113, 0.12);
+      color: #fca5a5;
+      border: 1px solid rgba(248, 113, 113, 0.5);
+    }
+
+    .badge-neutral {
+      background: rgba(234, 179, 8, 0.08);
+      color: #facc15;
+      border: 1px solid rgba(234, 179, 8, 0.4);
+    }
+
+    .badge-empty {
+      opacity: 0.25;
+    }
+
+    /* 모바일 최적화 */
+    @media (max-width: 640px) {
+      body {
+        padding: 20px 10px 28px;
+      }
+      .card {
+        padding: 14px 10px 10px;
+      }
+      .card-header {
+        align-items: flex-start;
+      }
+      .card-sub {
+        font-size: 10px;
+      }
+      table {
+        font-size: 11px;
+        min-width: 600px;
+      }
+      th,
+      td {
+        padding: 6px 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <header class="page-header">
+      <div class="page-title">
+        오일 핵심 지표별 롱·숏 디시전 테이블
+        <span class="page-chip">JH 오일 인텔리전스</span>
+      </div>
+      <p class="page-desc">
+        각 지표를 기반으로 <strong>매수(롱) / 매도(숏) / 중립·주의</strong> 신호를 분류한
+        룰 테이블입니다. 화면 깨짐을 막기 위해 모든 표는 가로 스크롤이 가능한 구조로 설계되어 있으며, 모바일에서도 안정적으로 확인할 수 있습니다.
+      </p>
+    </header>
+
+    <main class="grid">
+      <!-- 1) EIA 주간 재고 -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="index">1</span>
+            EIA 주간 재고 (Crude / Gasoline / Distillate)
+          </div>
+          <div class="card-sub">
+            원유·휘발유·정제유 재고와 정제 가동률을 통한 수급 타이트/여유 판단
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>지표</th>
+                <th>상태</th>
+                <th>해석</th>
+                <th>롱 신호</th>
+                <th>숏 신호</th>
+                <th>중립·주의</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>원유 재고 (Crude Stocks)</td>
+                <td>감소 (Draw)</td>
+                <td class="text-sub">공급 부족 → 타이트</td>
+                <td><span class="badge badge-long">강한 롱</span></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>원유 재고 (Crude Stocks)</td>
+                <td>증가 (Build)</td>
+                <td class="text-sub">공급 여유 → 약세</td>
+                <td></td>
+                <td><span class="badge badge-short">숏 우위</span></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Cushing 재고</td>
+                <td>감소</td>
+                <td class="text-sub">WTI 지역 공급 타이트</td>
+                <td><span class="badge badge-long">롱</span></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Cushing 재고</td>
+                <td>증가</td>
+                <td class="text-sub">WTI 지역 공급 여유</td>
+                <td></td>
+                <td><span class="badge badge-short">숏</span></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>휘발유 재고</td>
+                <td>감소</td>
+                <td class="text-sub">운송·소비 수요 강함</td>
+                <td><span class="badge badge-long">롱</span></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>휘발유 재고</td>
+                <td>증가</td>
+                <td class="text-sub">수요 부진 또는 정제 과잉</td>
+                <td></td>
+                <td><span class="badge badge-short">숏</span></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>정제유 재고</td>
+                <td>감소</td>
+                <td class="text-sub">산업·물류 수요 강함</td>
+                <td><span class="badge badge-long">롱</span></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>정제유 재고</td>
+                <td>증가</td>
+                <td class="text-sub">경기 둔화 신호</td>
+                <td></td>
+                <td><span class="badge badge-short">숏</span></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>정제 가동률</td>
+                <td>상승</td>
+                <td class="text-sub">정제마진 높음 → 수요 긍정</td>
+                <td><span class="badge badge-long">롱</span></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>정제 가동률</td>
+                <td>하락</td>
+                <td class="text-sub">원유 수요 감소</td>
+                <td></td>
+                <td><span class="badge badge-short">숏</span></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 2) API 주간 재고 -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="index">2</span>
+            API 주간 재고
+          </div>
+          <div class="card-sub">
+            EIA 발표 전 선행 힌트용 감도 체크 지표
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>지표</th>
+                <th>상태</th>
+                <th>롱 신호</th>
+                <th>숏 신호</th>
+                <th>중립·주의</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>API Crude</td>
+                <td>예측 대비 큰 감소</td>
+                <td><span class="badge badge-long">롱</span></td>
+                <td></td>
+                <td><span class="badge badge-neutral">EIA와 괴리 주의</span></td>
+              </tr>
+              <tr>
+                <td>API Crude</td>
+                <td>예측 대비 큰 증가</td>
+                <td></td>
+                <td><span class="badge badge-short">숏</span></td>
+                <td><span class="badge badge-neutral">EIA와 괴리 주의</span></td>
+              </tr>
+              <tr>
+                <td>Gasoline / Distillate</td>
+                <td>감소</td>
+                <td><span class="badge badge-long">롱</span></td>
+                <td></td>
+                <td><span class="badge badge-neutral">선행 힌트</span></td>
+              </tr>
+              <tr>
+                <td>Gasoline / Distillate</td>
+                <td>증가</td>
+                <td></td>
+                <td><span class="badge badge-short">숏</span></td>
+                <td><span class="badge badge-neutral">선행 힌트</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 3) Crack Spread -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="index">3</span>
+            Crack Spread (정제마진)
+          </div>
+          <div class="card-sub">
+            정제마진을 통해 정제업체 가동, 원유 수요 방향성 판단
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>지표</th>
+                <th>상태</th>
+                <th>해석</th>
+                <th>롱 신호</th>
+                <th>숏 신호</th>
+                <th>중립·주의</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>3-2-1 Crack Spread</td>
+                <td>상승</td>
+                <td class="text-sub">
+                  정제마진 ↑ → 정제업체 가동 ↑ → 원유 수요 ↑
+                </td>
+                <td><span class="badge badge-long">롱</span></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>3-2-1 Crack Spread</td>
+                <td>하락</td>
+                <td class="text-sub">
+                  정제마진 ↓ → 가동 ↓ → 원유 수요 ↓
+                </td>
+                <td></td>
+                <td><span class="badge badge-short">숏</span></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Gasoline Crack</td>
+                <td>상승</td>
+                <td class="text-sub">휘발유 수요 강함</td>
+                <td><span class="badge badge-long">롱</span></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Gasoline Crack</td>
+                <td>하락</td>
+                <td class="text-sub">단기 운송 수요 둔화</td>
+                <td></td>
+                <td><span class="badge badge-short">숏</span></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Diesel / Heating Oil Crack</td>
+                <td>상승</td>
+                <td class="text-sub">산업·운송 수요 견조</td>
+                <td><span class="badge badge-long">롱</span></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Diesel / Heating Oil Crack</td>
+                <td>하락</td>
+                <td class="text-sub">경기 둔화 신호</td>
+                <td></td>
+                <td><span class="badge badge-short">숏</span></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 4) Time Spread -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="index">4</span>
+            Time Spread (근월-차월 스프레드)
+          </div>
+          <div class="card-sub">
+            커브 구조(Backwardation / Contango)를 통한 수급 강도 판단
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>지표</th>
+                <th>상태</th>
+                <th>해석</th>
+                <th>롱 신호</th>
+                <th>숏 신호</th>
+                <th>중립·주의</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Backwardation (근월 &gt; 차월)</td>
+                <td>강화</td>
+                <td class="text-sub">당월 공급 타이트</td>
+                <td><span class="badge badge-long">강한 롱</span></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Backwardation (근월 &gt; 차월)</td>
+                <td>약화</td>
+                <td class="text-sub">타이트 완화</td>
+                <td></td>
+                <td></td>
+                <td><span class="badge badge-neutral">중립</span></td>
+              </tr>
+              <tr>
+                <td>Contango (근월 &lt; 차월)</td>
+                <td>강화</td>
+                <td class="text-sub">공급 풍부 / 수요 약함</td>
+                <td></td>
+                <td><span class="badge badge-short">숏</span></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Contango (근월 &lt; 차월)</td>
+                <td>약화</td>
+                <td class="text-sub">수요 회복 or 공급 축소</td>
+                <td><span class="badge badge-long">소폭 롱</span></td>
+                <td></td>
+                <td><span class="badge badge-neutral">중립</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 5) WTI–Brent 스프레드 -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="index">5</span>
+            WTI–Brent 스프레드
+          </div>
+          <div class="card-sub">
+            지역별 공급 타이트/완화와 지정학 리스크 반영
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>상태</th>
+                <th>해석</th>
+                <th>롱 신호</th>
+                <th>숏 신호</th>
+                <th>중립·주의</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Brent가 WTI 대비 강세 확대</td>
+                <td class="text-sub">
+                  글로벌 공급 불안 · 중동 리스크 상승
+                </td>
+                <td>
+                  <span class="badge badge-long">WTI / Brent 롱 기회</span>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>WTI가 Brent 대비 강세</td>
+                <td class="text-sub">미국 내 공급 타이트</td>
+                <td><span class="badge badge-long">WTI 롱</span></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>WTI 급락으로 스프레드 확대</td>
+                <td class="text-sub">
+                  미국 내 재고 급증 또는 파이프라인 이슈
+                </td>
+                <td></td>
+                <td><span class="badge badge-short">숏</span></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 6) CFTC COT 포지션 -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="index">6</span>
+            CFTC COT 포지션 (Managed Money)
+          </div>
+          <div class="card-sub">
+            펀드·CTA 포지션 변화를 통한 센티먼트 체크
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>항목</th>
+                <th>상태</th>
+                <th>해석</th>
+                <th>롱 신호</th>
+                <th>숏 신호</th>
+                <th>중립·주의</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Managed Money 순매수</td>
+                <td>증가</td>
+                <td class="text-sub">기관이 롱 쌓는 중</td>
+                <td><span class="badge badge-long">롱</span></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Managed Money 순매수</td>
+                <td>급감</td>
+                <td class="text-sub">숏 전환 / 이탈</td>
+                <td></td>
+                <td><span class="badge badge-short">숏</span></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Managed Money 순매도</td>
+                <td>축소</td>
+                <td class="text-sub">숏커버 발생 가능</td>
+                <td><span class="badge badge-long">롱 가능</span></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Managed Money 순매도</td>
+                <td>확대</td>
+                <td class="text-sub">시장 비관</td>
+                <td></td>
+                <td><span class="badge badge-short">숏</span></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Extreme Position</td>
+                <td>순매수 과열</td>
+                <td class="text-sub">조정 가능성 → 숏 유리</td>
+                <td></td>
+                <td><span class="badge badge-short">역발상 숏</span></td>
+                <td><span class="badge badge-neutral">과열 구간</span></td>
+              </tr>
+              <tr>
+                <td>Extreme Position</td>
+                <td>순매도 과열</td>
+                <td class="text-sub">반등 가능성 → 롱 유리</td>
+                <td><span class="badge badge-long">역발상 롱</span></td>
+                <td></td>
+                <td><span class="badge badge-neutral">과매도 구간</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 7) 옵션 Vol / Skew -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="index">7</span>
+            옵션 (Volatility / Skew)
+          </div>
+          <div class="card-sub">
+            변동성 레벨과 상·하방 보험 수요를 통한 리스크 방향 확인
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>지표</th>
+                <th>상태</th>
+                <th>해석</th>
+                <th>롱 신호</th>
+                <th>숏 신호</th>
+                <th>중립·주의</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>IV (내재변동성)</td>
+                <td>상승</td>
+                <td class="text-sub">이벤트 앞둔 변동성 확대</td>
+                <td></td>
+                <td></td>
+                <td>
+                  <span class="badge badge-neutral">방향성보다 변동성 플레이</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Put Skew</td>
+                <td>상승</td>
+                <td class="text-sub">하락 보험 수요 ↑</td>
+                <td></td>
+                <td>
+                  <span class="badge badge-short">숏 우위</span>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Call Skew</td>
+                <td>상승</td>
+                <td class="text-sub">상승 보험 수요 ↑</td>
+                <td>
+                  <span class="badge badge-long">롱 우위</span>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 8) USD / 금리 -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="index">8</span>
+            USD (DXY) / 금리 (US10Y / US02Y)
+          </div>
+          <div class="card-sub">
+            달러와 금리 사이클을 통한 원자재·오일 방향성 프레임
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>지표</th>
+                <th>상태</th>
+                <th>해석</th>
+                <th>롱 신호</th>
+                <th>숏 신호</th>
+                <th>중립·주의</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>DXY (달러 인덱스)</td>
+                <td>하락</td>
+                <td class="text-sub">달러 약세 → 원자재 강세</td>
+                <td><span class="badge badge-long">롱</span></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>DXY (달러 인덱스)</td>
+                <td>상승</td>
+                <td class="text-sub">달러 강세 → 원자재 약세</td>
+                <td></td>
+                <td><span class="badge badge-short">숏</span></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>미 국채 금리</td>
+                <td>상승</td>
+                <td class="text-sub">경기둔화 우려 · 수요 하락</td>
+                <td></td>
+                <td><span class="badge badge-short">숏</span></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>미 국채 금리</td>
+                <td>하락</td>
+                <td class="text-sub">유동성 공급 · 경기 회복 기대</td>
+                <td><span class="badge badge-long">롱</span></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 9) 매크로 수요 지표 -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="index">9</span>
+            매크로 수요 지표
+          </div>
+          <div class="card-sub">
+            경기·산업 활동을 통한 중·장기 수요 방향 체크
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>지표</th>
+                <th>상태</th>
+                <th>해석</th>
+                <th>롱 신호</th>
+                <th>숏 신호</th>
+                <th>중립·주의</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>PMI</td>
+                <td>&gt; 50</td>
+                <td class="text-sub">경기 확장 → 에너지 수요 증가</td>
+                <td><span class="badge badge-long">롱</span></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>PMI</td>
+                <td>&lt; 50</td>
+                <td class="text-sub">경기 위축 → 수요 감소</td>
+                <td></td>
+                <td><span class="badge badge-short">숏</span></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>항공 운항</td>
+                <td>증가</td>
+                <td class="text-sub">제트연료 수요 ↑</td>
+                <td><span class="badge badge-long">롱</span></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>산업생산</td>
+                <td>증가</td>
+                <td class="text-sub">디젤 수요 ↑</td>
+                <td><span class="badge badge-long">롱</span></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 10) 실물 흐름 -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="index">10</span>
+            실물 흐름 (운임 / 선적 / 정제설비)
+          </div>
+          <div class="card-sub">
+            실물 운송·정제 인프라를 통한 공급 병목 및 수요 강도 판단
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>항목</th>
+                <th>상태</th>
+                <th>해석</th>
+                <th>롱 신호</th>
+                <th>숏 신호</th>
+                <th>중립·주의</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Dirty Tanker Index</td>
+                <td>상승</td>
+                <td class="text-sub">원유 운송 활발 → 수요 ↑</td>
+                <td><span class="badge badge-long">롱</span></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>운임</td>
+                <td>급등</td>
+                <td class="text-sub">공급 부족 · 수송 병목</td>
+                <td><span class="badge badge-long">롱</span></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>정제설비</td>
+                <td>점검 / 화재</td>
+                <td class="text-sub">공급 차질</td>
+                <td><span class="badge badge-long">롱</span></td>
+                <td></td>
+                <td>
+                  <span class="badge badge-neutral">이벤트성 뉴스 모니터</span>
+                </td>
+              </tr>
+              <tr>
+                <td>파이프라인</td>
+                <td>재가동</td>
+                <td class="text-sub">공급 확대</td>
+                <td></td>
+                <td><span class="badge badge-short">숏</span></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 11) 지정학 -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="index">11</span>
+            지정학 (OPEC / 전쟁 / 제재)
+          </div>
+          <div class="card-sub">
+            정책·전쟁·제재 이슈로 인한 공급 축소/확대 리스크
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>항목</th>
+                <th>상태</th>
+                <th>해석</th>
+                <th>롱 신호</th>
+                <th>숏 신호</th>
+                <th>중립·주의</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>OPEC</td>
+                <td>감산</td>
+                <td class="text-sub">공급 축소</td>
+                <td><span class="badge badge-long">강한 롱</span></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>OPEC</td>
+                <td>증산</td>
+                <td class="text-sub">공급 확대</td>
+                <td></td>
+                <td><span class="badge badge-short">숏</span></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>중동 / 러시아 등</td>
+                <td>긴장 고조</td>
+                <td class="text-sub">공급 차질 우려</td>
+                <td><span class="badge badge-long">롱</span></td>
+                <td></td>
+                <td>
+                  <span class="badge badge-neutral">뉴스 변동성 주의</span>
+                </td>
+              </tr>
+              <tr>
+                <td>제재</td>
+                <td>완화</td>
+                <td class="text-sub">공급 증가 (이란 / 베네수엘라 등)</td>
+                <td></td>
+                <td><span class="badge badge-short">숏</span></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

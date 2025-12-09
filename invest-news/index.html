@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>투자 뉴스 허브</title>
+
+<style>
+  :root {
+    --bg: #020617;
+    --bg-soft: #020617;
+    --card: #020817;
+    --accent: #38bdf8;
+    --accent-soft: rgba(56, 189, 248, 0.15);
+    --badge: #0f172a;
+    --text-main: #f9fafb;
+    --text-sub: #9ca3af;
+    --border: #1f2937;
+    --radius-lg: 22px;
+    --radius-md: 16px;
+    --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.8);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: radial-gradient(circle at top, #0b1120 0, #020617 55%, #020617 100%);
+    color: var(--text-main);
+  }
+
+  .wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px 16px 72px;
+  }
+
+  /* 상단 뒤로가기 버튼 */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    color: var(--text-sub);
+    text-decoration: none;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(148, 163, 184, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    margin-bottom: 18px;
+  }
+
+  .back-link::before {
+    content: "←";
+    font-size: 12px;
+  }
+
+  .back-link:hover {
+    color: #e5e7eb;
+    border-color: var(--accent);
+  }
+
+  /* 헤더 영역 */
+  .page-header {
+    margin-bottom: 22px;
+  }
+
+  .page-title {
+    margin: 0 0 6px;
+    font-size: clamp(22px, 4.8vw, 30px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  .page-sub {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-sub);
+  }
+
+  /* 리스트 영역 */
+  .news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .news-card {
+    background: radial-gradient(circle at top left, #0b1120 0, #020617 45%, #020617 100%);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(31, 41, 55, 0.9);
+    padding: 16px 16px 14px;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.85);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease,
+      background 0.14s ease;
+  }
+
+  .news-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(56, 189, 248, 0.6);
+    box-shadow: 0 24px 55px rgba(15, 23, 42, 0.95);
+    background: radial-gradient(circle at top left, #0f172a 0, #020617 50%, #020617 100%);
+  }
+
+  .news-title-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .news-card a {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-main);
+    text-decoration: none;
+    line-height: 1.5;
+  }
+
+  .news-card a span {
+    display: inline-block;
+  }
+
+  .date-pill {
+    align-self: flex-start;
+    white-space: nowrap;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    font-size: 11px;
+    color: var(--text-sub);
+    background: rgba(15, 23, 42, 0.9);
+  }
+
+  .news-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-sub);
+  }
+
+  .badge {
+    padding: 3px 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    background: var(--accent-soft);
+    color: #e0f2fe;
+    font-size: 11px;
+  }
+
+  @media (max-width: 640px) {
+    .wrap {
+      padding: 18px 14px 60px;
+    }
+
+    .news-card {
+      padding: 14px 14px 12px;
+      border-radius: 18px;
+    }
+
+    .news-card a {
+      font-size: 15px;
+    }
+
+    .page-sub {
+      font-size: 13px;
+    }
+  }
+</style>
+
+
+  <script>
+    // 자동 로딩 (data/news.json 읽어오기)
+    async function loadNews() {
+      const list = document.querySelector('.news-list');
+
+      try {
+        const res = await fetch("news.json");
+        const news = await res.json();
+
+        news.forEach(item => {
+          const card = document.createElement("div");
+          card.className = "news-card";
+
+card.innerHTML = `
+  <div class="news-title-row">
+    <a href="./news/${item.file}">
+      <span>${item.title}</span>
+    </a>
+    <span class="date-pill">${item.date}</span>
+  </div>
+  <div class="news-meta">
+    <span class="badge">핵심 요약</span>
+    <span>제 시각으로 재정리</span>
+  </div>
+`;
+
+
+          list.appendChild(card);
+        });
+
+      } catch (e) {
+        list.innerHTML = "<p>뉴스 데이터를 불러올 수 없습니다.</p>";
+      }
+    }
+
+    window.onload = loadNews;
+  </script>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <a href="../invest-hub.html" class="back-link">투자 허브로 돌아가기</a>
+
+    <div class="page-header">
+      <h1 class="page-title">투자 뉴스 허브</h1>
+      <p class="page-sub">펀더멘털·매크로 관점에서 다시 볼 만한 뉴스만 골라 정리합니다.</p>
+    </div>
+
+    <div class="news-list"></div>
+
+  </div>
+</body>
+</html>

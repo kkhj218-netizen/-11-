@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>고급 과정 – Advanced</title>
+
+  <style>
+    :root {
+      --bg: #050816;
+      --card: #020617;
+      --text-main: #e5e7eb;
+      --text-sub: #9ca3af;
+      --border: #1f2937;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --shadow-soft: 0 24px 50px rgba(0,0,0,0.5);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: radial-gradient(circle at top, #111827, #020617 55%, #000 100%);
+      color: var(--text-main);
+    }
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 28px 16px 80px;
+    }
+    .top-nav {
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+    .top-nav a {
+      color: #9ca3af;
+      text-decoration: none;
+    }
+    .top-nav a:hover { text-decoration: underline; }
+
+    header {
+      padding: 22px 22px 20px;
+      margin-bottom: 24px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, #020617, #111827);
+      color: #f9fafb;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid #1f2937;
+    }
+    header h1 {
+      margin: 0 0 6px;
+      font-size: 22px;
+    }
+    header p {
+      margin: 0;
+      font-size: 13px;
+      color: #9ca3af;
+      line-height: 1.7;
+    }
+
+    .section {
+      background: rgba(15,23,42,0.9);
+      border-radius: var(--radius-md);
+      padding: 20px 20px 22px;
+      border: 1px solid var(--border);
+      margin-bottom: 22px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.4);
+    }
+    h2 {
+      font-size: 18px;
+      margin: 0 0 10px;
+      color: #f9fafb;
+    }
+    p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-sub);
+    }
+
+    .badge-small {
+      display: inline-block;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #f97316;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .pill {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(249,115,22,0.1);
+      color: #fbbf24;
+      border: 1px solid rgba(249,115,22,0.35);
+    }
+
+    .note-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
+      margin-top: 10px;
+    }
+    .card-link {
+      border-radius: 14px;
+      border: 1px solid #1f2937;
+      padding: 16px;
+      background: linear-gradient(145deg, #020617, #030712);
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+    }
+    .card-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 40px rgba(15,23,42,0.8);
+      border-color: #f97316;
+      background: radial-gradient(circle at top, #111827, #020617);
+    }
+    .card-link h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+      color: #e5e7eb;
+    }
+    .card-link p {
+      color: #9ca3af;
+    }
+    .empty-text {
+      font-size: 13px;
+      color: #6b7280;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 768px) {
+      .wrap { padding: 22px 14px 60px; }
+      header { padding: 18px 16px 18px; }
+      header h1 { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top-nav">
+    <a href="../invest-study.html">← 투자 공부 허브로 돌아가기</a>
+  </div>
+
+  <header>
+    <h1>고급 과정 – Advanced</h1>
+    <p>
+      기업·섹터·매크로를 한 프레임 안에서 묶어 보는 단계입니다.  
+      전략·리스크 관리까지 포함해서, 실제 “자본 배치” 관점으로  
+      시장을 해석하는 노트들을 모아둡니다.
+    </p>
+  </header>
+
+  <section class="section">
+    <h2>이 단계에서 다루는 내용</h2>
+    <p>
+      ✔ 개별 기업·섹터 분석 프레임<br>
+      ✔ 매크로(금리·경기·유가·통화정책)와 자산군 연결<br>
+      ✔ 포트폴리오 구성·리스크 관리 전략<br>
+      ✔ 전략별(추세, 스윙, 옵션 등) 의사결정 구조<br><br>
+      아래 목록은 모두 <strong>고급(Advanced)</strong> 레벨로 분류된 노트입니다.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>고급 노트 목록</h2>
+    <div id="study-list" class="note-grid"></div>
+    <div id="study-empty" class="empty-text" style="display:none;">
+      아직 고급 레벨 노트가 없습니다. <code>study.json</code>에 항목을追加해보세요.
+    </div>
+  </section>
+
+</div>
+
+<script>
+  async function loadStudyNotes({ containerId, emptyId, level }) {
+    const listEl = document.getElementById(containerId);
+    const emptyEl = document.getElementById(emptyId);
+    if (!listEl) return;
+
+    try {
+      const res = await fetch("../study.json", { cache: "no-store" });
+      if (!res.ok) throw new Error("study.json 불러오기 실패");
+
+      const data = await res.json();
+      if (!Array.isArray(data) || data.length === 0) {
+        if (emptyEl) emptyEl.style.display = "block";
+        return;
+      }
+
+      let filtered = data.filter(item => item.level === level);
+      if (filtered.length === 0) {
+        if (emptyEl) emptyEl.style.display = "block";
+        return;
+      }
+
+      filtered = filtered.slice().reverse();
+
+      filtered.forEach(item => {
+        const a = document.createElement("a");
+        a.className = "card-link";
+        a.href = item.file;
+
+        const badge = document.createElement("span");
+        badge.className = "badge-small";
+        badge.textContent = "고급";
+
+        const title = document.createElement("h3");
+        title.textContent = item.title;
+
+        const summary = document.createElement("p");
+        summary.textContent = item.summary;
+
+        const pills = document.createElement("div");
+        pills.className = "pill-row";
+        (item.tags || []).forEach(tag => {
+          const span = document.createElement("span");
+          span.className = "pill";
+          span.textContent = tag;
+          pills.appendChild(span);
+        });
+
+        a.appendChild(badge);
+        a.appendChild(title);
+        a.appendChild(summary);
+        if (item.tags && item.tags.length > 0) {
+          a.appendChild(pills);
+        }
+        listEl.appendChild(a);
+      });
+    } catch (err) {
+      console.error("노트 불러오기 오류:", err);
+      if (emptyEl) emptyEl.style.display = "block";
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    loadStudyNotes({
+      containerId: "study-list",
+      emptyId: "study-empty",
+      level: "advanced"
+    });
+  });
+</script>
+
+</body>
+</html>

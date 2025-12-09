@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>2025-01-23 투자일지</title>
+
+  <style>
+    :root {
+      --bg: #f5f5f7;
+      --card: #ffffff;
+      --text-main: #111111;
+      --text-sub: #555555;
+      --border: #e2e2e7;
+      --radius-lg: 22px;
+      --radius-md: 14px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+    }
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 28px 16px 80px;
+    }
+    .top-nav {
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+    .top-nav a { color:#555; text-decoration:none; }
+    .top-nav a:hover { text-decoration:underline; }
+
+    header {
+      padding: 18px 20px 18px;
+      margin-bottom: 22px;
+      border-radius: var(--radius-lg);
+      background: #020617;
+      color: #e5e7eb;
+    }
+    header h1 {
+      margin: 0 0 4px;
+      font-size: 22px;
+    }
+    header p {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    h2 {
+      font-size: 17px;
+      margin: 0 0 8px;
+    }
+    p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-sub);
+      white-space: pre-line; /* 줄바꿈 유지 */
+    }
+
+    .section {
+      background: var(--card);
+      border-radius: var(--radius-md);
+      padding: 18px 18px 20px;
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .tag {
+      display: inline-block;
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #4338ca;
+    }
+
+    .img-block {
+      margin: 10px 0 6px;
+    }
+    .img-block img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      display: block;
+    }
+    .img-caption {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+
+    .note-list {
+      font-size: 14px;
+      color: var(--text-sub);
+      padding-left: 18px;
+      margin: 6px 0 0;
+    }
+    .note-list li {
+      margin-bottom: 4px;
+    }
+
+    @media (max-width: 768px) {
+      .wrap { padding: 22px 12px 60px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top-nav">
+      <a href="../invest-log.html">← 투자일지 목록으로</a>
+    </div>
+
+    <!-- ✅ 이 부분만 날짜/요약/태그 맞게 수정 -->
+    <header>
+      <h1>2025-01-23 투자일지</h1>
+      <p>
+        오늘의 매매 요약 한 줄.
+        예) JEPQ 소량 매수 · 나스닥 선물 관망 · 현금 비중 40% 유지
+      </p>
+      <div class="tag-row">
+        <span class="tag">JEPQ (ETF)</span>
+        <span class="tag">소량 매수</span>
+        <span class="tag">장기 배당</span>
+      </div>
+    </header>
+
+    <section class="section">
+      <h2>오늘의 매매 기록</h2>
+      <p>
+- JEPQ (ETF): 전고점 근처에서 소량 매수. 월 배당 캐시플로우 구축이 목적.
+- 나스닥 선물: FOMC 앞두고 방향성 베팅 대신 포지션 축소 후 관망.
+- 현금: 신규 매수 없이 기존 포지션 리스크 관리에 집중.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>차트 & 포지션 스크린샷</h2>
+
+      <div class="img-block">
+        <img src="../images/2025-01-23-jeqp.png" alt="2025-01-23 JEPQ 일봉 차트">
+        <div class="img-caption">
+          JEPQ 일봉 차트 – 전고점 부근에서 분할 매수, 추세 훼손 여부 체크.
+        </div>
+      </div>
+
+      <!-- 필요 없으면 이 블록 삭제 -->
+      <div class="img-block">
+        <img src="../images/2025-01-23-nq.png" alt="2025-01-23 나스닥 선물 포지션">
+        <div class="img-caption">
+          나스닥 선물 포지션 – FOMC 전 포지션 정리 후 관망한 구간.
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>오늘의 메모</h2>
+      <p>
+오늘은 "조금만 더..."라는 생각이 계속 올라왔지만,
+사전에 세운 분할 매수/매도 계획을 지킨 덕분에
+큰 실수를 피할 수 있었다.
+
+특히 전고점 부근에서는
+"추가 수익"이 아니라 "리스크 관리"를 우선순위에 두는 게
+결국 멘탈에도 좋다는 걸 다시 확인했다.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>오늘의 배운 점 & 내일 체크포인트</h2>
+      <ul class="note-list">
+        <li>지표 이벤트(FOMC) 전후에는 포지션 줄이는 게 체력·멘탈에 유리.</li>
+        <li>욕심이 올라오는 순간을 기록해두면, 나중에 복기할 때 큰 도움 된다.</li>
+        <li>내일은 JEPQ 조정 구간을 미리 가격대별로 적어두고 장을 시작할 것.</li>
+      </ul>
+    </section>
+  </div>
+</body>
+</html>

@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daily 실행 기록 – 수익 다각화 로그</title>
+
+  <style>
+    :root {
+      --bg: #f5f5f7;
+      --card: #ffffff;
+      --text-main: #111111;
+      --text-sub: #555555;
+      --border: #e2e2e7;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --shadow-soft: 0 18px 40px rgba(0,0,0,0.06);
+      --accent: #0f766e;
+      --accent-soft: #ecfdf5;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+    }
+
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 28px 16px 80px;
+    }
+
+    .top-nav {
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+    .top-nav a {
+      color: #555;
+      text-decoration: none;
+    }
+    .top-nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* 헤더는 기존 느낌 유지 */
+    header {
+      padding: 20px 20px 18px;
+      margin-bottom: 26px;
+      border-radius: var(--radius-lg);
+      background: #111;
+      color: #fff;
+    }
+    header h1 {
+      margin: 0 0 6px;
+      font-size: 22px;
+    }
+    header p {
+      margin: 0;
+      font-size: 13px;
+      color: #e5e5e5;
+      line-height: 1.6;
+    }
+
+    /* 새 레이아웃 */
+    .main-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .panel {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .section {
+      background: var(--card);
+      border-radius: var(--radius-md);
+      padding: 18px 18px 20px;
+      border: 1px solid var(--border);
+    }
+
+    h2 {
+      font-size: 17px;
+      margin: 0 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    h2 span.emoji {
+      font-size: 18px;
+    }
+
+    p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-sub);
+    }
+
+    /* 요약 카드 */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .summary-card {
+      border-radius: 12px;
+      padding: 10px 12px 11px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+    }
+
+    .summary-label {
+      font-size: 11px;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+
+    .summary-value {
+      font-size: 18px;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .summary-sub {
+      font-size: 11px;
+      color: #9ca3af;
+      margin-top: 2px;
+    }
+
+    /* 월 선택 바 */
+    .month-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 4px;
+      font-size: 13px;
+      color: #6b7280;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .month-pills {
+      display: inline-flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .month-pill {
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid #e5e7eb;
+      font-size: 12px;
+      background: #f9fafb;
+      color: #4b5563;
+      cursor: pointer;
+    }
+
+    .month-pill.active {
+      background: #0f172a;
+      color: #f9fafb;
+      border-color: #0f172a;
+    }
+
+    /* 타임라인 */
+    .timeline {
+      margin-top: 6px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 16px;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 4px;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .timeline-item::after {
+      content: "";
+      position: absolute;
+      left: 8.5px;
+      top: 14px;
+      width: 1px;
+      height: calc(100% - 10px);
+      background: #e5e7eb;
+    }
+
+    .timeline-item:last-child::after {
+      display: none;
+    }
+
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .date-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .weekday {
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 4px 0 6px;
+    }
+
+    .tag {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #115e59;
+    }
+
+    .log-list {
+      margin: 0;
+      padding-left: 16px;
+    }
+
+    .log-list li {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #4b5563;
+    }
+
+    .log-note {
+      margin-top: 4px;
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    /* 오른쪽 패널 */
+    .hint-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+
+    .hint-list {
+      margin: 0;
+      padding-left: 18px;
+      font-size: 13px;
+      color: #4b5563;
+      line-height: 1.7;
+    }
+
+    .template-box {
+      margin-top: 8px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: #f9fafb;
+      border: 1px dashed #d1d5db;
+      font-size: 13px;
+      color: #4b5563;
+      white-space: pre-line;
+    }
+
+    .mini-label {
+      display: inline-block;
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      margin-bottom: 4px;
+    }
+
+    @media (max-width: 768px) {
+      .wrap {
+        padding: 22px 14px 60px;
+      }
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top-nav">
+      <a href="index.html">← 11평 허브로 돌아가기</a>
+    </div>
+
+    <header>
+      <h1>수익 다각화 Daily 실행 기록</h1>
+      <p>
+        “오늘 수익 다각화를 위해 한 일”을 짧게 남기는 공간입니다.<br />
+        거창한 성과보다, 작게라도 움직인 기록을 쌓는 데 집중합니다.
+      </p>
+    </header>
+
+    <main class="main-grid">
+      <!-- 왼쪽: 요약 + 타임라인 -->
+      <section class="panel">
+        <div class="section">
+          <h2><span class="emoji">📊</span>이번 달 실행 요약</h2>
+          <p id="summary-desc">
+            시트에 기록된 데이터를 기준으로, 이번 달 실행 현황을 정리해 보여줍니다.
+          </p>
+
+          <div id="summary-cards" class="summary-grid">
+            <!-- JS에서 채움 -->
+          </div>
+
+          <div class="month-row">
+            <span id="current-month-label">지금 보는 기록: -</span>
+            <div id="month-pills" class="month-pills">
+              <!-- JS에서 채움 -->
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2><span class="emoji">📅</span><span id="timeline-title">실행 타임라인</span></h2>
+          <p style="font-size:13px; color:#6b7280; margin-top:0;">
+            날짜별로 어떤 실행을 했는지, 위에서 아래로 시간순으로 내려가며 정리했습니다.
+          </p>
+
+          <div id="timeline" class="timeline">
+            <!-- JS에서 채움 -->
+          </div>
+        </div>
+      </section>
+
+      <!-- 오른쪽: 템플릿 & 팁 -->
+      <aside class="panel">
+        <div class="section">
+          <span class="mini-label">기록 템플릿</span>
+          <h2 style="margin-top:4px;"><span class="emoji">✍️</span>오늘 실행 한 줄 요약</h2>
+          <p>
+            11평 웹 페이지 프레임 설계 및 제작 30% 정도? (완) 25년 12월 9일 
+          </p>
+
+          <div class="template-box">
+(date)     : 2025-12-9일 기준  
+(weekday) : 월  
+(tags)    : 브랜딩,페이지 개선,구조 설계, 웹 페이지 글 생성   
+(action)  : 11평 허브 메인 페이지 UI 다듬고, "좋은 글들" 버튼 추가  
+(note)    : 한 번 만들어둔 구조 계속 다듬기
+          </div>
+        </div>
+
+        <div class="section">
+          <h2><span class="emoji">💡</span>목표</h2>
+          <div class="hint-title">어떻게 꾸준히 유지 할 수 있을까?</div>
+          <ul class="hint-list">
+            <li>완벽한 내용보다, <strong>못해도 매주 꾸준히</strong> 기록하는 것을 목표로</li>
+            <li>잘 될지 모르겠지만 일단.. <strong>꾸준히</strong> 글을 한개, 한개씩 늘리는 것을 목표로 나가겠다.</li>
+            <li>못해도 주에 1번 이상은 업데이트를 목표로..</li>
+          </ul>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <script>
+    // ★ 여기에 본인 Apps Script 웹 앱 URL을 넣어주세요
+    const API_URL = "https://script.google.com/macros/s/AKfycbwP0bzkgJOkIeL3zqBFFPE6zAsWC_wQajVVnTbmSqYtcDsrO5QGS3aH8vvlOYv8PIWyMQ/exec";
+
+    const summaryCardsEl = document.getElementById("summary-cards");
+    const monthPillsEl = document.getElementById("month-pills");
+    const currentMonthLabelEl = document.getElementById("current-month-label");
+    const timelineEl = document.getElementById("timeline");
+    const timelineTitleEl = document.getElementById("timeline-title");
+
+    let allRows = [];
+    let allMonths = [];
+
+    function fetchData() {
+      fetch(API_URL)
+        .then(res => res.json())
+        .then(data => {
+          allRows = data || [];
+          if (allRows.length === 0) {
+            timelineEl.innerHTML = "<p style='font-size:13px;color:#6b7280;'>아직 기록이 없습니다. Google Sheets에 첫 번째 로그를 남겨보세요.</p>";
+            return;
+          }
+
+          // '2025-12' 09일 리스트 추출
+          allMonths = Array.from(new Set(
+            allRows
+              .map(r => (r.date || "").slice(0, 7))
+              .filter(Boolean)
+          )).sort();
+
+          const latestMonth = allMonths[allMonths.length - 1];
+          renderMonthPills(latestMonth);
+          applyMonthFilter(latestMonth);
+        })
+        .catch(err => {
+          console.error(err);
+          timelineEl.innerHTML = "<p style='font-size:13px;color:#b91c1c;'>데이터를 불러오는 중 오류가 발생했습니다. Apps Script URL 또는 권한을 확인해주세요.</p>";
+        });
+    }
+
+    function renderMonthPills(activeMonth) {
+      monthPillsEl.innerHTML = "";
+      allMonths.forEach(month => {
+        const span = document.createElement("span");
+        span.className = "month-pill" + (month === activeMonth ? " active" : "");
+        const [y, m] = month.split("-");
+        span.textContent = m;
+        span.title = `${12}년 ${9}월`;
+        span.dataset.month = month;
+        span.addEventListener("click", () => {
+          document.querySelectorAll(".month-pill").forEach(p => p.classList.remove("active"));
+          span.classList.add("active");
+          applyMonthFilter(month);
+        });
+        monthPillsEl.appendChild(span);
+      });
+    }
+
+    function applyMonthFilter(month) {
+      const filtered = allRows.filter(r => (r.date || "").startsWith(month));
+      const [y, m] = month.split("-");
+      currentMonthLabelEl.textContent = `지금 보는 기록: ${y}년 ${m}월`;
+      timelineTitleEl.textContent = `${y}-${m} 실행 타임라인`;
+      renderSummary(filtered, month);
+      renderTimeline(filtered);
+    }
+
+    function renderSummary(rows, month) {
+      if (!rows || rows.length === 0) {
+        summaryCardsEl.innerHTML = `
+          <div class="summary-card">
+            <div class="summary-label">이번 달 기록일</div>
+            <div class="summary-value">0일</div>
+            <div class="summary-sub">아직 기록이 없습니다.</div>
+          </div>
+        `;
+        return;
+      }
+
+      // 날짜별 묶기
+      const dateSet = new Set();
+      rows.forEach(r => { if (r.date) dateSet.add(r.date); });
+      const uniqueDates = Array.from(dateSet).sort();
+
+      // 최장 연속일 계산
+      const streak = calcMaxStreak(uniqueDates);
+
+      const totalDays = uniqueDates.length;
+      const totalItems = rows.length;
+
+      summaryCardsEl.innerHTML = `
+        <div class="summary-card">
+          <div class="summary-label">웹사이트 12월 7일 부터 수정 </div>
+          <div class="summary-value">${3}일</div>
+          <div class="summary-sub">마지막 업데이트 12월 9일</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-label">트레이딩 기록</div>
+          <div class="summary-value">${1}개</div>
+          <div class="summary-sub">12월 9일 마지막 업데이트</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-label">투자 관련 포스팅</div>
+          <div class="summary-value">${streak}일</div>
+          <div class="summary-sub">12월 9일 마지막 업데이트</div>
+        </div>
+      `;
+    }
+
+    function calcMaxStreak(dateStrings) {
+      if (dateStrings.length === 0) return 0;
+      const dates = dateStrings.map(d => new Date(d + "T00:00:00"));
+      dates.sort((a, b) => a - b);
+
+      let maxStreak = 1;
+      let currentStreak = 1;
+
+      for (let i = 1; i < dates.length; i++) {
+        const prev = dates[i - 1];
+        const curr = dates[i];
+        const diffDays = (curr - prev) / (1000 * 60 * 60 * 24);
+
+        if (diffDays === 1) {
+          currentStreak++;
+        } else {
+          currentStreak = 1;
+        }
+        if (currentStreak > maxStreak) maxStreak = currentStreak;
+      }
+      return maxStreak;
+    }
+
+    function renderTimeline(rows) {
+      if (!rows || rows.length === 0) {
+        timelineEl.innerHTML = "<p style='font-size:13px;color:#6b7280;'>이 달에는 아직 기록이 없습니다.</p>";
+        return;
+      }
+
+      // 날짜별 그룹핑
+      const byDate = {};
+      rows.forEach(r => {
+        const date = r.date || "";
+        if (!byDate[date]) {
+          byDate[date] = {
+            date,
+            weekday: r.weekday || "",
+            items: [],
+            tags: new Set(),
+            notes: []
+          };
+        }
+        if (r.action) {
+          byDate[date].items.push(r.action);
+        }
+        if (r.tags) {
+          r.tags.split(",").map(t => t.trim()).filter(Boolean).forEach(t => byDate[date].tags.add(t));
+        }
+        if (r.note) {
+          byDate[date].notes.push(r.note);
+        }
+      });
+
+      const dates = Object.keys(byDate).sort().reverse(); // 최신 날짜가 위로
+      timelineEl.innerHTML = "";
+
+      dates.forEach(date => {
+        const dayData = byDate[date];
+        const wrapper = document.createElement("article");
+        wrapper.className = "timeline-item";
+
+        const header = document.createElement("div");
+        header.className = "timeline-header";
+
+        const left = document.createElement("div");
+        const dateLabel = document.createElement("div");
+        dateLabel.className = "date-label";
+        dateLabel.textContent = dayData.date || "-";
+
+        const weekday = document.createElement("div");
+        weekday.className = "weekday";
+        weekday.textContent = dayData.weekday || "";
+
+        left.appendChild(dateLabel);
+        left.appendChild(weekday);
+        header.appendChild(left);
+        wrapper.appendChild(header);
+
+        // 태그
+        if (dayData.tags.size > 0) {
+          const tagRow = document.createElement("div");
+          tagRow.className = "tag-row";
+          dayData.tags.forEach(tag => {
+            const span = document.createElement("span");
+            span.className = "tag";
+            span.textContent = tag;
+            tagRow.appendChild(span);
+          });
+          wrapper.appendChild(tagRow);
+        }
+
+        // 실행 리스트
+        if (dayData.items.length > 0) {
+          const ul = document.createElement("ul");
+          ul.className = "log-list";
+          dayData.items.forEach(text => {
+            const li = document.createElement("li");
+            li.textContent = text;
+            ul.appendChild(li);
+          });
+          wrapper.appendChild(ul);
+        }
+
+        // 메모
+        if (dayData.notes.length > 0) {
+          const note = document.createElement("div");
+          note.className = "log-note";
+          note.textContent = "👉 " + dayData.notes[0];
+          wrapper.appendChild(note);
+        }
+
+        timelineEl.appendChild(wrapper);
+      });
+    }
+
+    // 실행
+    fetchData();
+  </script>
+</body>
+</html>

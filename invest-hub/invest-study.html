@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>투자 공부 허브 – 단계별 학습</title>
+
+  <style>
+    :root {
+      --bg: #f5f5f7;
+      --card: #ffffff;
+      --text-main: #111111;
+      --text-sub: #555555;
+      --border: #e2e2e7;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --shadow-soft: 0 18px 40px rgba(0,0,0,0.06);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+    }
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 28px 16px 80px;
+    }
+    .top-nav {
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+    .top-nav a {
+      color: #555;
+      text-decoration: none;
+    }
+    .top-nav a:hover { text-decoration: underline; }
+
+    header {
+      padding: 22px 22px 20px;
+      margin-bottom: 24px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #fff;
+      box-shadow: var(--shadow-soft);
+    }
+    header h1 {
+      margin: 0 0 6px;
+      font-size: 24px;
+    }
+    header p {
+      margin: 0;
+      font-size: 13px;
+      color: #e5e7eb;
+      line-height: 1.7;
+    }
+
+    .section {
+      background: var(--card);
+      border-radius: var(--radius-md);
+      padding: 20px 20px 22px;
+      border: 1px solid var(--border);
+      margin-bottom: 22px;
+    }
+    h2 {
+      font-size: 18px;
+      margin: 0 0 10px;
+    }
+    p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-sub);
+    }
+
+    /* 단계 스텝바 */
+    .steps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .step-pill {
+      flex: 1;
+      min-width: 90px;
+      text-align: center;
+      font-size: 12px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: #020617;
+      color: #e5e7eb;
+      opacity: 0.85;
+    }
+    .step-pill span {
+      display: block;
+      font-size: 11px;
+      color: #9ca3af;
+      margin-top: 2px;
+    }
+
+    /* 3단계 카드 그리드 */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .card-link {
+      border-radius: 14px;
+      border: 1px solid #e1e1e7;
+      padding: 18px;
+      background: #fafafa;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+    }
+    .card-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 26px rgba(15,23,42,0.12);
+      border-color: #cbd5f5;
+    }
+    .card-link h3 {
+      margin: 0 0 6px;
+      font-size: 17px;
+    }
+    .badge {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      display: inline-block;
+      margin-bottom: 8px;
+      color: #1e40af;
+      background: #e0e7ff;
+    }
+
+    .badge-small {
+      display: inline-block;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #e5edff;
+      color: #1d4ed8;
+      margin-bottom: 6px;
+    }
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .pill {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #4b5563;
+    }
+
+    .note-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .empty-text {
+      font-size: 13px;
+      color: #9ca3af;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 768px) {
+      .wrap { padding: 22px 14px 60px; }
+      header { padding: 18px 16px 18px; }
+      header h1 { font-size: 20px; }
+      h2 { font-size: 16px; }
+      .card-link { padding: 16px; }
+    }
+  </style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <div class="top-nav">
+    <a href="../invest-hub.html">← 투자 허브로 돌아가기</a>
+  </div>
+
+  <header>
+    <h1>투자 공부 허브</h1>
+    <p>
+      투자 개념 → 실전 적용 → 심화 분석까지  
+      단계별로 쌓아가는 학습 로드맵입니다.  
+      “지금 나는 어디 단계에 있는가?”를 스스로 체크하면서 공부해보세요.
+    </p>
+
+    <div class="steps">
+      <div class="step-pill">기초 Fundamentals<span>ETF·지표·용어</span></div>
+      <div class="step-pill">중급 Applied<span>지표 해석·재무</span></div>
+      <div class="step-pill">고급 Advanced<span>기업·전략·리스크</span></div>
+    </div>
+  </header>
+
+  <!-- 학습 구조 설명 -->
+  <section class="section">
+    <h2>학습 구조</h2>
+    <p>
+      공부 허브는 다음 3단계로 구성됩니다.
+      <br><br>
+      ✔ <strong>기초(Fundamentals)</strong> — ETF·금리·지표·캔들·기본 용어<br>
+      ✔ <strong>중급(Applied)</strong> — 지표 해석, 재무제표 흐름, 섹터·시장 구조<br>
+      ✔ <strong>고급(Advanced)</strong> — 기업 분석, 매크로, 전략·리스크 관리<br><br>
+      각 단계는 별도의 페이지에서 정리 노트를 자동으로 불러옵니다.
+    </p>
+  </section>
+
+  <!-- 3단계 허브 카드 -->
+  <section class="section">
+    <h2>📚 단계별 학습 허브</h2>
+
+    <div class="grid">
+
+      <!-- 기초 -->
+      <a class="card-link" href="study/fundamentals.html">
+        <span class="badge">기초 과정</span>
+        <h3>Fundamentals – 투자 기본기 </h3>
+        <p>ETF, 금리, 지표, 캔들, 용어 등  
+        투자의 뼈대를 세우는 필수 기본 개념.</p>
+        <div class="pill-row">
+          <span class="pill">ETF 구조</span>
+          <span class="pill">기초 지표</span>
+          <span class="pill">투자 용어</span>
+        </div>
+      </a>
+
+      <!-- 중급 -->
+      <a class="card-link" href="study/applied.html">
+        <span class="badge">중급 과정</span>
+        <h3>Applied – 실전 적용 </h3>
+        <p>지표 해석, 차트 구조, 뉴스·재무제표 읽기 등  
+        “알고 있는 것”을 실제 시장에 연결하는 단계.</p>
+        <div class="pill-row">
+          <span class="pill">지표 읽기</span>
+          <span class="pill">재무 해석</span>
+          <span class="pill">시장 구조</span>
+        </div>
+      </a>
+
+      <!-- 고급 -->
+      <a class="card-link" href="study/advanced.html">
+        <span class="badge">고급 과정</span>
+        <h3>Advanced – 심화 분석</h3>
+        <p>기업 분석, 매크로 흐름, 포트폴리오 전략, 리스크 관리 등  
+        체계적인 프레임으로 시장을 바라보는 단계.</p>
+        <div class="pill-row">
+          <span class="pill">기업 분석</span>
+          <span class="pill">매크로</span>
+          <span class="pill">리스크 관리</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- 전체 노트 요약 (최근 몇 개) -->
+  <section class="section">
+    <h2>최근 정리한 공부 노트</h2>
+    <p style="margin-bottom:8px;">
+      한눈에 보기용 리스트입니다. 자세한 정리는 각 단계 허브에서 확인하세요.
+    </p>
+
+    <div id="study-list" class="note-grid"></div>
+    <div id="study-empty" class="empty-text" style="display:none;">
+      아직 등록된 노트가 없습니다. <code>study.json</code>을 추가해보세요.
+    </div>
+  </section>
+</div>
+
+<script>
+  /**
+   * 공통 노트 로더
+   * - invest-hub/study.json 기준
+   * - level: 'fundamentals' | 'applied' | 'advanced' | null(전체)
+   */
+  async function loadStudyNotes({ containerId, emptyId, level = null, limit = 6 }) {
+    const listEl = document.getElementById(containerId);
+    const emptyEl = document.getElementById(emptyId);
+
+    if (!listEl) return;
+
+    try {
+      // 허브 기준 위치: invest-hub/invest-study.html → study.json
+      const res = await fetch("study.json", { cache: "no-store" });
+      if (!res.ok) throw new Error("study.json 불러오기 실패");
+
+      const data = await res.json();
+      if (!Array.isArray(data) || data.length === 0) {
+        if (emptyEl) emptyEl.style.display = "block";
+        return;
+      }
+
+      let filtered = data;
+      if (level) {
+        filtered = data.filter(item => item.level === level);
+      }
+
+      if (filtered.length === 0) {
+        if (emptyEl) emptyEl.style.display = "block";
+        return;
+      }
+
+      // 최신 항목 위로 오게 정렬한다고 가정(뒤에 추가한다고 보면 reverse)
+      filtered = filtered.slice().reverse();
+
+      if (limit) {
+        filtered = filtered.slice(0, limit);
+      }
+
+      filtered.forEach(item => {
+        const a = document.createElement("a");
+        a.className = "card-link";
+        a.href = "study/" + item.file.replace(/^study\//, ""); // 허브 기준 상대경로 정리
+
+        const badge = document.createElement("span");
+        badge.className = "badge-small";
+        badge.textContent = item.level === "fundamentals"
+          ? "기초"
+          : item.level === "applied"
+          ? "중급"
+          : item.level === "advanced"
+          ? "고급"
+          : "노트";
+
+        const title = document.createElement("h3");
+        title.textContent = item.title;
+
+        const summary = document.createElement("p");
+        summary.textContent = item.summary;
+
+        const pills = document.createElement("div");
+        pills.className = "pill-row";
+        (item.tags || []).forEach(tag => {
+          const span = document.createElement("span");
+          span.className = "pill";
+          span.textContent = tag;
+          pills.appendChild(span);
+        });
+
+        a.appendChild(badge);
+        a.appendChild(title);
+        a.appendChild(summary);
+        if (item.tags && item.tags.length > 0) {
+          a.appendChild(pills);
+        }
+        listEl.appendChild(a);
+      });
+    } catch (err) {
+      console.error("노트 불러오기 오류:", err);
+      if (emptyEl) emptyEl.style.display = "block";
+    }
+  }
+
+  // 허브에서는 전체 레벨에서 최근 6개만 보여줌
+  document.addEventListener("DOMContentLoaded", () => {
+    loadStudyNotes({
+      containerId: "study-list",
+      emptyId: "study-empty",
+      level: null,
+      limit: 6
+    });
+  });
+</script>
+
+</body>
+</html>

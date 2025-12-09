@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>좋은 글들 – 부자가 되기 위한 마인드</title>
+
+  <style>
+    :root {
+      --bg: #f5f5f7;
+      --card: #ffffff;
+      --text-main: #111111;
+      --text-sub: #555555;
+      --border: #e2e2e7;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --shadow-soft: 0 18px 42px rgba(0,0,0,0.06);
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+      background:var(--bg);
+      color:var(--text-main);
+    }
+    .wrap{
+      max-width:960px;
+      margin:0 auto;
+      padding:28px 16px 80px;
+    }
+    .top-nav{
+      font-size:13px;
+      margin-bottom:10px;
+    }
+    .top-nav a{color:#555;text-decoration:none;}
+    .top-nav a:hover{text-decoration:underline;}
+
+    header{
+      padding:22px 22px 20px;
+      margin-bottom:24px;
+      border-radius:var(--radius-lg);
+      background:linear-gradient(135deg,#111827,#020617);
+      color:#e5e7eb;
+      box-shadow:var(--shadow-soft);
+    }
+    header h1{
+      margin:0 0 6px;
+      font-size:24px;
+    }
+    header p{
+      margin:0;
+      font-size:13px;
+      line-height:1.8;
+    }
+
+    .section{
+      background:var(--card);
+      border-radius:var(--radius-md);
+      padding:20px 20px 24px;
+      border:1px solid var(--border);
+      margin-bottom:18px;
+    }
+    h2{
+      font-size:18px;
+      margin:0 0 10px;
+    }
+    p{
+      font-size:14px;
+      line-height:1.8;
+      color:var(--text-sub);
+    }
+
+    .article-list{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    .article-card{
+      border-radius:14px;
+      border:1px solid #e1e1e7;
+      padding:14px 14px 16px;
+      background:#fafafa;
+      transition:background 0.12s ease, transform 0.12s ease, box-shadow 0.12s ease;
+      cursor:pointer;
+    }
+    .article-card:hover{
+      background:#ffffff;
+      transform:translateY(-2px);
+      box-shadow:0 12px 28px rgba(0,0,0,0.08);
+    }
+    .article-card h3{
+      margin:0 0 6px;
+      font-size:16px;
+      color:#111827;
+    }
+    .article-meta{
+      font-size:11px;
+      color:#6b7280;
+      margin-bottom:4px;
+    }
+    .chip-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      margin-top:6px;
+    }
+    .chip{
+      font-size:11px;
+      padding:2px 7px;
+      border-radius:999px;
+      background:#eef2ff;
+      color:#4b5563;
+    }
+
+    .highlight-article{
+      border-radius:16px;
+      border:1px solid #e1e1e7;
+      padding:18px 18px 20px;
+      background:linear-gradient(135deg,#fef3c7,#f9fafb);
+    }
+    .highlight-article h2{
+      font-size:19px;
+      margin-bottom:8px;
+    }
+    .highlight-article p{
+      font-size:14px;
+      line-height:1.9;
+    }
+
+    @media (max-width:768px){
+      .wrap{padding:22px 14px 60px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top-nav">
+      <a href="index.html">← 11평 허브로 돌아가기</a>
+    </div>
+
+    <header>
+      <h1>좋은 글들</h1>
+      <p>
+        저 처럼 무너졌거나, 돈을 많이 벌고 싶은 분들이 <br />
+봤으면 좋을 내용의 글들을 모아봅니다<br /> 
+
+여기에는 그런 생각들을 차분하게 적어 둡니다.</p>
+    </header>
+
+    <!-- 메인 하이라이트 글 하나 -->
+    <section class="highlight-article">
+      <h2>작은 실행이 결국 인생을 바꾼다</h2>
+      <p>
+        “언젠가 제대로 시작해야지”라는 말을 입에 달고 살던 때가 있었다.  
+        준비가 덜 됐다는 이유로, 자본이 부족하다는 이유로, 시간과 상황을 탓하면서
+        하루를 흘려보냈다.<br /><br />
+        그런데 돌이켜보면, 내 삶을 바꿔 온 건 언제나 거창한 결심이 아니라
+        <strong>작은 실행 하나</strong>였다.<br />
+        블로그에 글 한 편을 올린 날,  
+        계좌를 열고 첫 1만 원을 투자한 날,  
+        카메라를 켜고 떨리는 손으로 첫 영상을 찍은 날.<br /><br />
+        오늘도 마찬가지다.  
+        “완벽하게 정리된 계획”보다,  
+        지금 당장 할 수 있는 <strong>가장 작은 액션 하나</strong>에 집중해 보자.  
+        부자가 되는 길도, 결국은 그런 작은 실행들의 합일 테니까.
+      </p>
+    </section>
+
+    <!-- 글 목록 카드 -->
+    <section class="section">
+      <h2>마인드 셋 글 모음</h2>
+      <div class="article-list">
+        <div class="article-card">
+          <div class="article-meta">마인드 · 성장</div>
+          <h3>실패를 “증거”로 남기는 사람 vs “상처”로 남기는 사람</h3>
+          <p>
+            같은 실패를 해도 어떤 사람은 다음 도전의 연료로 쓰고,
+            어떤 사람은 평생 핑곗거리로 쓴다.  
+            둘의 차이는 실패를 바라보는 관점 한 줄에서 갈린다.
+          </p>
+          <div class="chip-row">
+            <span class="chip">실패 다루기</span>
+            <span class="chip">재도전</span>
+          </div>
+        </div>
+
+        <div class="article-card">
+          <div class="article-meta">돈 · 습관</div>
+          <h3>월급에 집착하면 자산을 만들기 어렵다</h3>
+          <p>
+            월급은 생활비를 책임지는 엔진이고,
+            자산은 미래를 책임지는 엔진이다.  
+            월급만 올리는 데 몰입하면, 정작 자산 엔진이 멈춰 있는 걸 못 본다.
+          </p>
+          <div class="chip-row">
+            <span class="chip">자산 구조</span>
+            <span class="chip">소득 다각화</span>
+          </div>
+        </div>
+
+        <div class="article-card">
+          <div class="article-meta">관계 · 에너지</div>
+          <h3>에너지를 빼앗는 사람과 거리를 두는 용기</h3>
+          <p>
+            돈 공부만큼 중요한 게 사람 공부다.  
+            아무리 노력해도 항상 나를 소진시키는 관계가 있다면,
+            그건 투자 대상이 아니라 비용이다.
+          </p>
+          <div class="chip-row">
+            <span class="chip">경계 세우기</span>
+            <span class="chip">관계 정리</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

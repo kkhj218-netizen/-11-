@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>장 시작 전 · 장 마감 후 체크리스트 – Advanced</title>
+  <meta name="description" content="프로 투자자들이 장 시작 전·장 마감 후에 매일 체크하는 20가지 핵심 지표를 한눈에 정리한 대시보드형 체크리스트입니다. 지수·선물, 달러 인덱스, 금리, 유가, EIA 재고, 옵션 만기, 수급, 비트코인, 글로벌 뉴스까지 모두 포함." />
+
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-soft: #020617;
+      --card: #020617;
+      --card-soft: #020617;
+      --accent: #22c55e;
+      --accent-soft: rgba(34, 197, 94, 0.16);
+      --accent-strong: #22c55e;
+      --danger: #f97373;
+      --text-main: #e5e7eb;
+      --text-sub: #9ca3af;
+      --border-soft: rgba(148, 163, 184, 0.25);
+      --chip-bg: rgba(15, 23, 42, 0.8);
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.8);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: radial-gradient(circle at top, #0b1220 0, #020617 55%, #020617 100%);
+      color: var(--text-main);
+    }
+
+    .wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 16px 56px;
+    }
+
+    @media (min-width: 768px) {
+      .wrap {
+        padding: 32px 20px 72px;
+      }
+    }
+
+    /* 헤더 영역 */
+    .page-header {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+
+    @media (min-width: 768px) {
+      .page-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+    }
+
+    .title-block h1 {
+      font-size: 1.7rem;
+      margin: 0 0 8px;
+      letter-spacing: -0.02em;
+    }
+
+    @media (min-width: 768px) {
+      .title-block h1 {
+        font-size: 2rem;
+      }
+    }
+
+    .title-block p {
+      margin: 0;
+      font-size: 0.92rem;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .chip {
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 0.78rem;
+      background: var(--chip-bg);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      color: var(--text-sub);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .chip-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .view-toggle {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    @media (min-width: 768px) {
+      .view-toggle {
+        align-items: flex-end;
+      }
+    }
+
+    .toggle-label {
+      font-size: 0.82rem;
+      color: var(--text-sub);
+    }
+
+    .toggle-pill {
+      display: inline-flex;
+      align-items: center;
+      border-radius: var(--radius-pill);
+      padding: 4px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border-soft);
+    }
+
+    .toggle-pill button {
+      border: none;
+      background: transparent;
+      color: var(--text-sub);
+      font-size: 0.8rem;
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      cursor: default; /* UI 구조용, 실제 토글 기능은 나중에 JS로 */
+    }
+
+    .toggle-pill button.is-active {
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      font-weight: 600;
+    }
+
+    /* 안내 카드 */
+    .intro-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      background: radial-gradient(circle at top left, rgba(34, 197, 94, 0.25), transparent),
+        radial-gradient(circle at top right, rgba(59, 130, 246, 0.2), transparent),
+        rgba(15, 23, 42, 0.9);
+      padding: 18px 16px 16px;
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .intro-card {
+        padding: 20px 20px 18px;
+      }
+    }
+
+    .intro-title-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .intro-badge {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+
+    .intro-title {
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: var(--accent-strong);
+    }
+
+    .intro-body {
+      font-size: 0.86rem;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+
+    .intro-body strong {
+      color: var(--text-main);
+    }
+
+    /* 그리드 레이아웃 */
+    .checklist-section {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .group-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-sub);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-top: 4px;
+    }
+
+    .group-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    @media (min-width: 720px) {
+      .group-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .group-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .check-card {
+      position: relative;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(30, 64, 175, 0.5);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96), #020617);
+      padding: 14px 12px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-height: 160px;
+      overflow: hidden;
+    }
+
+    .check-card::before {
+      content: attr(data-index);
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-size: 0.82rem;
+      color: rgba(148, 163, 184, 0.8);
+    }
+
+    .check-title {
+      font-size: 0.96rem;
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .check-sub {
+      font-size: 0.78rem;
+      color: var(--accent-strong);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .pill {
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(51, 65, 85, 0.9);
+      color: var(--text-sub);
+      white-space: nowrap;
+    }
+
+    .check-body {
+      font-size: 0.8rem;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
+
+    .check-body strong {
+      color: var(--text-main);
+    }
+
+    .check-body ul {
+      margin: 4px 0 0;
+      padding-left: 16px;
+    }
+
+    .check-body li {
+      margin: 2px 0;
+    }
+
+    /* 푸터 노트 */
+    .bottom-note {
+      margin-top: 28px;
+      border-radius: var(--radius-md);
+      border: 1px dashed rgba(148, 163, 184, 0.6);
+      padding: 10px 12px;
+      font-size: 0.78rem;
+      color: var(--text-sub);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .bottom-note strong {
+      color: var(--accent-strong);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- 헤더 -->
+    <header class="page-header">
+      <div class="title-block">
+        <h1>장 시작 전 · 장 마감 후 체크리스트 20</h1>
+        <p>
+          프로들은 “감”으로 움직이지 않는다. 매일 같은 지표를 반복해서 보면서<br />
+          오늘 시장의 톤과 리스크 이벤트를 구조적으로 정리한다.
+        </p>
+        <div class="tag-row">
+          <span class="chip"><span class="chip-dot"></span>Daily Macro Routine</span>
+          <span class="chip">Pre-market & After-hours</span>
+          <span class="chip">리스크 온/오프 체크</span>
+        </div>
+      </div>
+
+      <div class="view-toggle">
+        <div class="toggle-label">뷰 모드 (추후 JS로 연결해서 사용 가능)</div>
+        <div class="toggle-pill">
+          <button type="button" class="is-active">요약 뷰</button>
+          <button type="button">디테일 뷰</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- 인트로 카드 -->
+    <section class="intro-card">
+      <div class="intro-title-row">
+        <span class="intro-badge">✅ Daily Macro & Risk Map</span>
+        <span class="intro-title">매일 아침 · 장 마감 후 같은 루틴으로 체크</span>
+      </div>
+      <div class="intro-body">
+        이 페이지는 장 시작 전/후에 보면 좋은 <strong>20가지 핵심 체크 항목</strong>을 한 번에 볼 수 있도록 정리한
+        <strong>Advanced 대시보드용 템플릿</strong>이다.<br />
+        실제 운용에서는 각 항목에 <strong>숫자·그래프·코멘트</strong>를 붙여서,
+        <strong>“오늘 시장은 Risk-on인지, Risk-off인지”</strong>를 한눈에 판단하는 용도로 사용하면 된다.
+      </div>
+    </section>
+
+    <!-- 체크리스트 섹션 -->
+    <section class="checklist-section">
+
+      <!-- 1. 글로벌 톤 & 변동성 -->
+      <div>
+        <div class="group-title">01 · Global Tone & Volatility</div>
+        <div class="group-grid">
+          <!-- 1) 지수 & 선물 -->
+          <article class="check-card" data-index="01">
+            <div class="check-title">
+              <span>지수 & 선물 흐름 (Pre-market Trend)</span>
+              <span class="check-sub">오늘 시장의 톤을 가장 먼저 알려주는 지표</span>
+            </div>
+            <div class="pill-row">
+              <span class="pill">S&P 500 선물</span>
+              <span class="pill">Nasdaq 100 선물</span>
+              <span class="pill">Dow · Russell 2000</span>
+            </div>
+            <div class="check-body">
+              <strong>상승/하락 폭</strong>과 방향을 함께 본다.
+              <ul>
+                <li>갭 상승 + 강한 선물 → Risk-on 분위기, 성장주·테마주 강세 가능성</li>
+                <li>갭 하락 + 선물 약세 → Risk-off, 방어주·현금 비중 점검</li>
+                <li>변동 폭이 크면 → 장 초반 변동성 장, 진입 타이밍 보수적 접근</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 2) VIX & 공포탐욕 -->
+          <article class="check-card" data-index="02">
+            <div class="check-title">
+              <span>공포·탐욕 지수 & VIX</span>
+              <span class="check-sub">시장 심리와 변동성 레벨 체킹</span>
+            </div>
+            <div class="pill-row">
+              <span class="pill">VIX 지수</span>
+              <span class="pill">Fear &amp; Greed Index</span>
+            </div>
+            <div class="check-body">
+              <ul>
+                <li><strong>VIX ↑</strong> → 변동성 확대 구간, 레버리지·단기 포지션 리스크 관리</li>
+                <li><strong>VIX ↓</strong> → 시장 안정, 추세 매매·스윙에 유리</li>
+                <li>공포·탐욕 지수 Extreme Greed/Extreme Fear 구간은 <strong>역발상 구간 후보</strong></li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 3) DXY -->
+          <article class="check-card" data-index="03">
+            <div class="check-title">
+              <span>달러 인덱스 (DXY)</span>
+              <span class="check-sub">글로벌 유동성의 방향</span>
+            </div>
+            <div class="pill-row">
+              <span class="pill">DXY</span>
+              <span class="pill">성장주 vs 가치주</span>
+              <span class="pill">신흥국 · 원자재</span>
+            </div>
+            <div class="check-body">
+              <ul>
+                <li><strong>DXY 상승</strong> → 성장주·신흥국·원자재에 부담, 달러 강세 국면</li>
+                <li><strong>DXY 하락</strong> → 위험자산 선호(Risk-on), 빅테크·반도체 우호적</li>
+                <li>미국 빅테크·반도체 지수와 <strong>역상관</strong> 체크</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 4) 국채금리 -->
+          <article class="check-card" data-index="04">
+            <div class="check-title">
+              <span>미국 국채금리 (2년 · 10년)</span>
+              <span class="check-sub">정책 기대 vs 장기 성장 기대</span>
+            </div>
+            <div class="pill-row">
+              <span class="pill">US 2Y</span>
+              <span class="pill">US 10Y</span>
+              <span class="pill">2Y–10Y 스프레드</span>
+            </div>
+            <div class="check-body">
+              <ul>
+                <li>2년물: <strong>금리 정책 기대</strong> (향후 인상/인하 베팅)</li>
+                <li>10년물: <strong>장기 성장·인플레 기대</strong></li>
+                <li>10년물 급등 → 성장주 조정 위험, 밸류에이션 재평가 구간</li>
+                <li>2년물 하락 → 금리 인하 기대감, 위험자산에 우호적</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 5) 유가 -->
+          <article class="check-card" data-index="05">
+            <div class="check-title">
+              <span>국제 유가 (WTI · Brent)</span>
+              <span class="check-sub">인플레이션 및 경기 체온계</span>
+            </div>
+            <div class="pill-row">
+              <span class="pill">WTI</span>
+              <span class="pill">Brent</span>
+              <span class="pill">에너지 · 항공 · 운송</span>
+            </div>
+            <div class="check-body">
+              <ul>
+                <li>유가 급등 → 인플레이션·비용 부담 재부각, 금리 인상 우려 재점화</li>
+                <li>유가 급락 → 수요 둔화·경기 둔화 시그널, 경기 민감주 주의</li>
+                <li>에너지, 항공, 운송 업종 주가 반응 같이 확인</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 6) 크랙스프레드 -->
+          <article class="check-card" data-index="06">
+            <div class="check-title">
+              <span>크랙 스프레드 (정유 마진)</span>
+              <span class="check-sub">정유주 필수 체킹 지표</span>
+            </div>
+            <div class="pill-row">
+              <span class="pill">Crack Spread</span>
+              <span class="pill">정유사 마진</span>
+            </div>
+            <div class="check-body">
+              <ul>
+                <li><strong>크랙 스프레드 ↑</strong> → 정유사 수익성 개선, 실적 상향 기대</li>
+                <li><strong>크랙 스프레드 ↓</strong> → 마진 압박, 실적 하향 리스크</li>
+                <li>정유·화학 업종 보유 시 <strong>주간 단위로 꼭 확인</strong></li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- 2. 오일 & 재고 · 캘린더 -->
+      <div>
+        <div class="group-title">02 · Oil, Inventory & Economic Calendar</div>
+        <div class="group-grid">
+          <!-- 7) EIA 재고 -->
+          <article class="check-card" data-index="07">
+            <div class="check-title">
+              <span>EIA 재고 (수요일 발표)</span>
+              <span class="check-sub">원유·휘발유·디젤 재고 변화</span>
+            </div>
+            <div class="pill-row">
+              <span class="pill">원유 재고</span>
+              <span class="pill">휘발유 · 디젤</span>
+              <span class="pill">수요/공급 밸런스</span>
+            </div>
+            <div class="check-body">
+              <ul>
+                <li>재고 증가 → 수요 약화 or 공급 과잉 시그널</li>
+                <li>재고 감소 → 수요 강함, 경기 탄탄 or 공급 차질</li>
+                <li>유가·정유주와 함께 방향성 확인</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 8) 경제지표 캘린더 -->
+          <article class="check-card" data-index="08">
+            <div class="check-title">
+              <span>경제지표 발표 일정 (Economic Calendar)</span>
+              <span class="check-sub">오늘 변동성 이벤트 시간표</span>
+            </div>
+            <div class="pill-row">
+              <span class="pill">CPI · PCE</span>
+              <span class="pill">FOMC · 금리결정</span>
+              <span class="pill">고용보고서 · ISM · GDP</span>
+            </div>
+            <div class="check-body">
+              <ul>
+                <li>발표 시간이 <strong>장 시작 전 / 장중 / 장 마감 후</strong>인지 체크</li>
+                <li>중요 지표 있는 날엔 포지션 사이즈·레버리지 축소 고려</li>
+                <li>발표 직후 5~30분 구간은 변동성 스파이크 구간</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 9) 실적 발표 -->
+          <article class="check-card" data-index="09">
+            <div class="check-title">
+              <span>기업 실적 발표 리스트 (Earnings)</span>
+              <span class="check-sub">EPS, 매출, 가이던스 3종 세트</span>
+            </div>
+            <div class="pill-row">
+              <span class="pill">장전 · 장후 실적</span>
+              <span class="pill">EPS / 매출 vs 컨센서스</span>
+              <span class="pill">Guidance</span>
+            </div>
+            <div class="check-body">
+              <ul>
+                <li>빅테크·지수 비중 높은 종목 실적은 <strong>시장 전체 톤 변경</strong> 가능</li>
+                <li>서프라이즈 / 쇼크 여부와 함께 <strong>가이던스 방향</strong> 꼭 확인</li>
+                <li>실적 시즌에는 하루하루 <strong>테마 로테이션 속도</strong>가 빨라진다</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 10) 섹터 로테이션 -->
+          <article class="check-card" data-index="10">
+            <div class="check-title">
+              <span>시장 테마 흐름 (Hot Sector Rotation)</span>
+              <span class="check-sub">어디로 돈이 들어오고, 어디서 빠지는가</span>
+            </div>
+            <div class="pill-row">
+              <span class="pill">반도체 · AI</span>
+              <span class="pill">금융 · 바이오</span>
+              <span class="pill">에너지 · 신재생 · 중국</span>
+            </div>
+            <div class="check-body">
+              <ul>
+                <li>전날/당일 강한 섹터를 <strong>상승폭 + 거래대금</strong> 기준으로 체크</li>
+                <li>섹터 ETF / 대표 종목 차트로 <strong>추세 vs 단기 급등</strong> 구분</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 11) ETF 자금 -->
+          <article class="check-card" data-index="11">
+            <div class="check-title">
+              <span>ETF 자금 유입/유출 (Fund Flows)</span>
+              <span class="check-sub">실제 돈의 방향</span>
+            </div>
+            <div class="pill-row">
+              <span class="pill">QQQ · TQQQ</span>
+              <span class="pill">SPY · SMH</span>
+              <span class="pill">XLE · XLK 등 섹터 ETF</span>
+            </div>
+            <div class="check-body">
+              <ul>
+                <li>자금 유입 지속 → <strong>테마 시작·추세 강화</strong> 신호</li>
+                <li>자금 유출 확대 → <strong>테마 종료 / 피크아웃</strong> 가능성</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 12) 환율 -->
+          <article class="check-card" data-index="12">
+            <div class="check-title">
+              <span>환율 (USD/KRW)</span>
+              <span class="check-sub">한국 투자자 필수 체크</span>
+            </div>
+            <div class="pill-row">
+              <span class="pill">USD/KRW</span>
+              <span class="pill">외국인 수급</span>
+              <span class="pill">수출주 vs 성장주</span>
+            </div>
+            <div class="check-body">
+              <ul>
+                <li>원달러 상승 → 외국인 매도 압력, 수출주 강세/성장주 부담</li>
+                <li>원달러 하락 → 외국인 유입 우호적, 성장주·내수주에 긍정적</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- 3. 옵션, 수급, 잔고 -->
+      <div>
+        <div class="group-title">03 · Derivatives, Flows & Positioning</div>
+        <div class="group-grid">
+          <!-- 13) 옵션 만기 -->
+          <article class="check-card" data-index="13">
+            <div class="check-title">
+              <span>미국 옵션 만기 (Monthly · Weekly Opex)</span>
+              <span class="check-sub">만기일은 항상 “다르게” 움직인다</span>
+            </div>
+            <div class="pill-row">
+              <span class="pill">월물 만기</span>
+              <span class="pill">Max Pain</span>
+              <span class="pill">풋/콜 비율</span>
+            </div>
+            <div class="check-body">
+              <ul>
+                <li>만기 전후로 <strong>특정 가격대에 붙는 움직임</strong> (Max Pain) 체크</li>
+                <li>풋/콜 포지션 비율로 시장의 <strong>편향된 베팅</strong> 파악</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 14) 메이저 수급 -->
+          <article class="check-card" data-index="14">
+            <div class="check-title">
+              <span>메이저 수급 (외국인 · 기관 · 연기금)</span>
+              <span class="check-sub">한국 시장만의 핵심 단서</span>
+            </div>
+            <div class="pill-row">
+              <span class="pill">외국인 누적 매수/매도</span>
+              <span class="pill">선물 포지션</span>
+              <span class="pill">기관/연기금 동향</span>
+            </div>
+            <div class="check-body">
+              <ul>
+                <li>외국인 현·선물 포지션 방향은 코스피/코스닥의 <strong>중기 방향 힌트</strong></li>
+                <li>연기금은 주로 <strong>저가 분할 매수·리밸런싱</strong>의 신호로 활용</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 15) 신용·공매도 -->
+          <article class="check-card" data-index="15">
+            <div class="check-title">
+              <span>신용잔고 / 공매도 잔고</span>
+              <span class="check-sub">과열·하락 리스크 조기 포착</span>
+            </div>
+            <div class="pill-row">
+              <span class="pill">신용잔고</span>
+              <span class="pill">공매도 잔고</span>
+            </div>
+            <div class="check-body">
+              <ul>
+                <li>신용잔고 급증 → 과열, 조정 시 변동성 확대</li>
+                <li>공매도 잔고 증가 → 펀더멘털·모멘텀 악화에 대한 <strong>시장 베팅</strong></li>
+                <li>공매도 잔고 감소 → 리스크 완화·실적 개선 기대</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 16) 글로벌 지수 -->
+          <article class="check-card" data-index="16">
+            <div class="check-title">
+              <span>전 세계 지수 마감 (아시아 · 유럽)</span>
+              <span class="check-sub">아침에 먼저 보는 글로벌 톤</span>
+            </div>
+            <div class="pill-row">
+              <span class="pill">중국 · 일본 · 홍콩</span>
+              <span class="pill">유럽 주요 지수</span>
+            </div>
+            <div class="check-body">
+              <ul>
+                <li>아시아 시장 흐름 → 한국장의 <strong>초반 방향성 힌트</strong></li>
+                <li>유럽 선물·마감 → 밤사이 리스크 온/오프 강도 체크</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 17) 비트코인 -->
+          <article class="check-card" data-index="17">
+            <div class="check-title">
+              <span>비트코인 가격</span>
+              <span class="check-sub">요즘판 리스크 온/오프 지표</span>
+            </div>
+            <div class="pill-row">
+              <span class="pill">BTCUSD</span>
+              <span class="pill">나스닥 상관관계</span>
+            </div>
+            <div class="check-body">
+              <ul>
+                <li>BTC 강세 · 신고가 근처 → Risk-on 심리 강함</li>
+                <li>BTC 급락 → 레버리지 자산 전반 디레버리징 가능성</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 18) 빅테크 개별주 -->
+          <article class="check-card" data-index="18">
+            <div class="check-title">
+              <span>빅테크 개별 주가 (AAPL · NVDA · MSFT…)</span>
+              <span class="check-sub">지수 방향을 결정하는 본체들</span>
+            </div>
+            <div class="pill-row">
+              <span class="pill">NVDA (AI 센티먼트)</span>
+              <span class="pill">AAPL (소비 · 생태계)</span>
+              <span class="pill">TSLA · AMZN 등</span>
+            </div>
+            <div class="check-body">
+              <ul>
+                <li>엔비디아: AI·반도체 심리 바로 반영</li>
+                <li>애플: 소비·생태계 건강도</li>
+                <li>테슬라: 리스크 자산 선호와 스토리 테마의 온도</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- 4. 뉴스 & Daily Risk Map -->
+      <div>
+        <div class="group-title">04 · News & Daily Risk Map</div>
+        <div class="group-grid">
+          <!-- 19) 뉴스 헤드라인 -->
+          <article class="check-card" data-index="19">
+            <div class="check-title">
+              <span>글로벌 뉴스 헤드라인 Top 10</span>
+              <span class="check-sub">소스별로 나누어 보는 습관</span>
+            </div>
+            <div class="pill-row">
+              <span class="pill">Bloomberg</span>
+              <span class="pill">WSJ</span>
+              <span class="pill">CNBC</span>
+              <span class="pill">FT</span>
+            </div>
+            <div class="check-body">
+              <ul>
+                <li>지정학 이슈 (중동 · 중국 · 미국 선거 등)</li>
+                <li>규제·정책 뉴스 (AI, 반도체, 빅테크 규제 등)</li>
+                <li>금리·물가 관련 발언, 서프라이즈 코멘트</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 20) Daily Risk Map -->
+          <article class="check-card" data-index="20">
+            <div class="check-title">
+              <span>오늘의 리스크 이벤트 정리 (Daily Risk Map)</span>
+              <span class="check-sub">헤지펀드식 “오늘의 전략 시트”</span>
+            </div>
+            <div class="pill-row">
+              <span class="pill">급등/급락 가능 이슈</span>
+              <span class="pill">변동성 높은 시간대</span>
+              <span class="pill">시나리오 (상승 · 횡보 · 하락)</span>
+            </div>
+            <div class="check-body">
+              <ul>
+                <li>오늘 발생 가능한 <strong>이벤트 리스트업</strong></li>
+                <li>각 시나리오(상승/횡보/하락)별 <strong>행동 전략</strong> 메모</li>
+                <li>“매수/매도 피해야 할 시간·구간”을 미리 적어두고 따라가기</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 하단 노트 -->
+    <div class="bottom-note">
+      <strong>TIP.</strong> 이 페이지는 구조를 위한 템플릿이다. 실제 운용에서는 각 카드에
+      <strong>숫자 · 전일 대비 변화율 · 짧은 코멘트</strong>를 매일 채워 넣으면,
+      장 시작 전 5~10분 만에 “오늘 시장이 어떤 날인지” 한눈에 감이 잡히는
+      <strong>나만의 Advanced 대시보드</strong>가 완성된다.
+    </div>
+  </div>
+</body>
+</html>

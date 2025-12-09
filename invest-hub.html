@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>투자 허브 – 11평에서 다시 시작한 남자</title>
+
+  <style>
+    :root {
+      --bg: #f5f5f7;
+      --card: #ffffff;
+      --text-main: #111111;
+      --text-sub: #555555;
+      --border: #e2e2e7;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --shadow-soft: 0 18px 40px rgba(0,0,0,0.06);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+    }
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 28px 16px 80px;
+    }
+    .top-nav {
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+    .top-nav a {
+      color: #555;
+      text-decoration: none;
+    }
+    .top-nav a:hover { text-decoration: underline; }
+
+    header {
+      padding: 22px 22px 20px;
+      margin-bottom: 24px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, #020617, #0f172a);
+      color: #fff;
+      box-shadow: var(--shadow-soft);
+    }
+    header h1 {
+      margin: 0 0 6px;
+      font-size: 24px;
+    }
+    header p {
+      margin: 0;
+      font-size: 13px;
+      color: #e5e7eb;
+      line-height: 1.7;
+    }
+    .section {
+      background: var(--card);
+      border-radius: var(--radius-md);
+      padding: 20px 20px 22px;
+      border: 1px solid var(--border);
+      margin-bottom: 18px;
+    }
+    h2 {
+      font-size: 18px;
+      margin: 0 0 10px;
+    }
+    p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-sub);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .card-link {
+      border-radius: 14px;
+      border: 1px solid #e1e1e7;
+      padding: 16px 16px 18px;
+      background: #fafafa;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+    }
+    .card-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 26px rgba(15,23,42,0.12);
+      border-color: #cbd5f5;
+    }
+    .card-link h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+    }
+    .badge-small {
+      display: inline-block;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #e5edff;
+      color: #1d4ed8;
+      margin-bottom: 6px;
+    }
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .pill {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #4b5563;
+    }
+    @media (max-width: 768px) {
+      .wrap { padding: 22px 14px 60px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top-nav">
+      <a href="index.html">← 11평 허브로 돌아가기</a>
+    </div>
+
+    <header>
+<h1 class="hero-title">
+  <span class="hero-main">투자 허브</span>
+  <span class="hero-divider">/</span>
+  <a href="invest-news/index.html" class="hero-sub-link">투자뉴스</a>
+</h1>
+
+      <p>
+        선물 + 현물 + ETF를 함께 보는 투자 실험실입니다.<br />
+        한번 무너져 보고 깨달은것은<br /> 
+무너졌을 때 다시 일어날 수 있는 마음, 욕심과 두려움을 다루는 힘이 더 중요하다는 것을 깨달 았습니다. <br /> 
+단순 수익 보단 리스크 관리에 더 초점을 두고 투자를 해나갑니다. 
+      </p>
+    </header>
+
+    <section class="section">
+      <h2>어디부터 볼까?</h2>
+      <p>
+        투자 허브는 <strong>실전 투자일지</strong>, <strong>공부 노트</strong>, <strong>도구·리포트</strong> 세 축으로 나눠집니다.
+        아래 카드 중 필요한 곳부터 들어가면 됩니다.
+      </p>
+    </section>
+
+    <section class="section">
+      <div class="grid">
+        <a href="invest-hub/invest-log.html" class="card-link">
+          <span class="badge-small">실전 기록</span>
+          <h3>투자일지 – 오늘의 판단과 매매 기록</h3>
+          <p>
+            “왜 샀고 왜 팔았는지”를 남기는 공간입니다.  
+            수익·손실보다 의사결정의 흐름에 집중합니다.
+          </p>
+          <div class="pill-row">
+            <span class="pill">실전 트레이드</span>
+            <span class="pill">위험 관리</span>
+            <span class="pill">마인드 체크</span>
+          </div>
+        </a>
+
+  
+        <a href="invest-hub/invest-study.html" class="card-link">
+          <span class="badge-small">학습 노트</span>
+          <h3>투자 공부 노트 – 개념·구조 정리</h3>
+          <p>
+            ETF, 거시경제, 기업 분석, 리스크 관리까지  
+            공부하면서 이해한 내용을 제 언어로 정리합니다.
+          </p>
+          <div class="pill-row">
+            <span class="pill">ETF 구조</span>
+            <span class="pill">지표 읽기</span>
+            <span class="pill">기업 분석</span>
+          </div>
+        </a>
+
+<a href="invest-hub/invest-tools.html" class="card-link">
+  <span class="badge-small">투자 도구</span>
+  <h3>투자 도구 · 자동 리포트</h3>
+  <p>
+    배당 정보 자동 업데이트, 환율·지수 위치판,  
+    API 기반 모니터링 도구 등을 단계적으로 붙여갈 예정입니다.
+  </p>
+  <div class="pill-row">
+    <span class="pill">자동화</span>
+    <span class="pill">리포트</span>
+    <span class="pill">SaaS 실험</span>
+  </div>
+</a>
+    </section>
+  </div>
+</body>
+</html>

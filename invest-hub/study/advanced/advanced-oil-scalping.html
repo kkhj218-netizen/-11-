@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>오일 스캘핑 Advanced – 장 시기 & 지속 수익 원칙</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-soft: #020617;
+      --card: #020617;
+      --border-soft: #1f2937;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --long: #22c55e;
+      --short: #f97373;
+      --neutral: #eab308;
+      --text-main: #e5e7eb;
+      --text-sub: #9ca3af;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.55);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 28px 12px 40px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+        system-ui, sans-serif;
+      background: radial-gradient(circle at top, #0f172a 0, #020617 55%);
+      color: var(--text-main);
+    }
+
+    .page {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+
+    header.page-header {
+      margin-bottom: 24px;
+    }
+
+    .page-title {
+      font-size: clamp(22px, 4vw, 30px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .page-chip {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.65);
+      color: var(--text-sub);
+    }
+
+    .page-desc {
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+
+    .grid {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .card {
+      background: linear-gradient(
+        135deg,
+        rgba(15, 23, 42, 0.96),
+        rgba(15, 23, 42, 0.98)
+      );
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 16px 16px;
+    }
+
+    .card-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-title span.index {
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(37, 99, 235, 0.22);
+      color: #bfdbfe;
+      border: 1px solid rgba(59, 130, 246, 0.75);
+    }
+
+    .card-sub {
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    h3.card-section-title {
+      font-size: 14px;
+      margin: 14px 0 6px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    h3.card-section-title span.emoji {
+      font-size: 15px;
+    }
+
+    p {
+      margin: 4px 0 6px;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    ul {
+      margin: 4px 0 10px 16px;
+      padding: 0;
+    }
+
+    li {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-main);
+      margin-bottom: 2px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      color: var(--text-sub);
+      margin-bottom: 6px;
+    }
+
+    .pill span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .highlight-box {
+      margin-top: 10px;
+      padding: 9px 10px;
+      border-radius: var(--radius-md);
+      background: radial-gradient(circle at top left,
+        rgba(56,189,248,0.2),
+        rgba(15,23,42,0.98)
+      );
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      font-size: 12px;
+      color: #e0f2fe;
+      line-height: 1.6;
+    }
+
+    .highlight-box strong {
+      color: #f9fafb;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .tag {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--text-sub);
+    }
+
+    .tag.good {
+      border-color: rgba(34, 197, 94, 0.5);
+      color: #bbf7d0;
+    }
+
+    .tag.risk {
+      border-color: rgba(248, 113, 113, 0.6);
+      color: #fecaca;
+    }
+
+    .divider {
+      height: 1px;
+      margin: 18px 0 0;
+      background: radial-gradient(circle at center,
+        rgba(148,163,184,0.35),
+        transparent
+      );
+      opacity: 0.7;
+    }
+
+    .summary-list {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1.65fr);
+      gap: 10px;
+      margin-top: 10px;
+      font-size: 12px;
+    }
+
+    .summary-box {
+      border-radius: var(--radius-md);
+      padding: 9px 10px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      line-height: 1.6;
+    }
+
+    .summary-title {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #e5e7eb;
+    }
+
+    .summary-box ul {
+      margin: 2px 0 0 14px;
+    }
+
+    .summary-box li {
+      font-size: 12px;
+      color: var(--text-sub);
+      margin-bottom: 1px;
+    }
+
+    .time-highlight {
+      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      color: #e5e7eb;
+      margin-right: 4px;
+    }
+
+    /* 3번 카드: Mini/Micro 손익 표 & 그래프 */
+    .ev-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .ev-box {
+      border-radius: var(--radius-md);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      padding: 8px 9px 10px;
+    }
+
+    .ev-title {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #e5e7eb;
+    }
+
+    table.ev-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+    }
+
+    .ev-table th,
+    .ev-table td {
+      padding: 4px 6px;
+      border-bottom: 1px solid rgba(55, 65, 81, 0.9);
+      text-align: right;
+    }
+
+    .ev-table th:first-child,
+    .ev-table td:first-child {
+      text-align: left;
+    }
+
+    .ev-table thead {
+      color: #cbd5f5;
+    }
+
+    .ev-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .ev-note {
+      font-size: 11px;
+      color: var(--text-sub);
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+
+    .scenario-list {
+      margin-top: 8px;
+      font-size: 12px;
+      display: grid;
+      grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+      gap: 10px;
+    }
+
+    .scenario-box {
+      border-radius: var(--radius-md);
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(75,85,99,0.9);
+      padding: 8px 9px;
+      line-height: 1.6;
+    }
+
+    .scenario-box strong {
+      color: #e5e7eb;
+    }
+
+    .chart-wrap {
+      margin-top: 12px;
+      border-radius: var(--radius-md);
+      background: rgba(15,23,42,0.95);
+      border: 1px solid rgba(55,65,81,0.9);
+      padding: 10px 10px 12px;
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .chart-title {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .chart-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: flex-end;
+    }
+
+    .legend-item {
+      font-size: 11px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--text-sub);
+    }
+
+    .legend-color {
+      width: 10px;
+      height: 2px;
+      border-radius: 999px;
+      background: #38bdf8;
+    }
+
+    .legend-color.w45 { background: #f97373; }
+    .legend-color.w50 { background: #38bdf8; }
+    .legend-color.w55 { background: #22c55e; }
+    .legend-color.w60 { background: #eab308; }
+
+    canvas#equityChart {
+      width: 100%;
+      max-width: 100%;
+      display: block;
+      background: radial-gradient(circle at top,
+        rgba(15,23,42,0.9),
+        rgba(15,23,42,1)
+      );
+      border-radius: 10px;
+    }
+
+    @media (max-width: 720px) {
+      body {
+        padding: 20px 10px 28px;
+      }
+      .card {
+        padding: 16px 12px 14px;
+      }
+      .summary-list {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .ev-grid {
+        grid-template-columns: minmax(0,1fr);
+      }
+      .scenario-list {
+        grid-template-columns: minmax(0,1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="page-header">
+      <div class="page-title">
+        오일 스캘핑 Advanced
+        <span class="page-chip">장 시기 & 지속 수익 원칙 정리</span>
+      </div>
+      <p class="page-desc">
+        오일 스캘퍼 관점에서 <strong>언제 들어갈 것인가(장 시기)</strong>와
+        <strong>어떻게 계좌를 지키면서 수익을 쌓을 것인가(룰·손절·손익비)</strong>를 정리한
+        Advanced 노트입니다. 여기에 <strong>Mini / Micro 손익 구조와 승률별 기대 수익, 누적 PnL 그래프</strong>까지 추가해 스캘핑 구조를 숫자로 체감할 수 있게 만들었습니다.
+      </p>
+    </header>
+
+    <main class="grid">
+
+      <!-- 1. 오일 스캘핑 하기 좋은 장 시기 -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="index">1</span>
+            오일 스캘핑 하기 좋은 ‘장 시기’ (실전 기준 TOP 4)
+          </div>
+          <div class="card-sub">
+            유동성 + 변동성 + 방향성이 동시에 살아나는 구간만 집중해서 매매하는 것이 핵심.
+          </div>
+        </div>
+
+        <div class="pill">
+          <span class="dot"></span>
+          스캘핑은 유동성 + 변동성 + 방향성이 동시에 생기는 구간에서!!
+        </div>
+        <p>아래 시간대만 집중해서 하는 걸 추천.</p>
+
+        <!-- ① 뉴욕장 오픈 -->
+        <h3 class="card-section-title">
+          <span class="emoji">🔥</span>
+          ① 뉴욕장 오픈 직전~오픈 직후 (22:00~23:30 KST)
+        </h3>
+        <p><strong>스캘핑 하기 가장 괜찮은 시간대!</strong></p>
+        <ul>
+          <li>미국 트레이더 본격 참여</li>
+          <li>유동성 폭발</li>
+          <li>당일 첫 방향성 확정</li>
+          <li>1~5분봉 추세 깔끔</li>
+        </ul>
+        <p>👉 <strong>스캘핑 성공률 최고 구간.</strong></p>
+
+        <!-- ② EIA -->
+        <h3 class="card-section-title">
+          <span class="emoji">🔥</span>
+          ② EIA(목 00:30) 원유재고 발표 직후
+        </h3>
+        <p><strong>오일에서 가장 큰 변동성 발생.</strong></p>
+        <ul>
+          <li>30~100틱 단기 급변</li>
+          <li>예측 대비 재고 변화로 강한 방향성 형성</li>
+          <li>1분 급등락 → 3~5분 추세 패턴 자주 등장</li>
+        </ul>
+        <p>👉 <strong>단타/초단타 모두 수익 구간.</strong></p>
+
+        <!-- ③ API -->
+        <h3 class="card-section-title">
+          <span class="emoji">🔥</span>
+          ③ API(수 05:30) 발표 직후
+        </h3>
+        <p>EIA보다 약하지만 <strong>기회 많은 시간대.</strong></p>
+        <ul>
+          <li>20~60틱 변동</li>
+          <li>첫 반응 후 방향 확정</li>
+          <li>단기 리스크 적고 타점 명확</li>
+        </ul>
+        <p>👉 발표 트레이딩에서 <strong>가장 깔끔한 파동.</strong></p>
+
+        <!-- ④ 유럽+프리마켓 -->
+        <h3 class="card-section-title">
+          <span class="emoji">🔥</span>
+          ④ 유럽장 + 미국 프리마켓 겹치는 시간 (16:00~20:00)
+        </h3>
+        <p>생각보다 <strong>기회가 많은 구간.</strong></p>
+        <ul>
+          <li>유럽 포지션 정리</li>
+          <li>뉴욕 프리마켓 알파 유입</li>
+          <li>‘조용하게’ 움직이는 단방향 추세 다수</li>
+        </ul>
+        <p>👉 <strong>낮에 안정적으로 스캘핑하기 좋은 시간.</strong></p>
+
+        <div class="highlight-box">
+          <strong>✨ 요약 – 오일 스캘핑 하기 괜찮은 시간</strong><br />
+          <span class="time-highlight">16:00–20:00</span>
+          <span class="time-highlight">22:00–23:30</span>
+          <span class="time-highlight">00:30 (EIA)</span>
+          <span class="time-highlight">05:30 (API)</span><br />
+          이 4개 시간대만 집중해도, 전체 트레이딩 퀄리티가 완전히 달라진다.
+        </div>
+      </section>
+
+      <!-- 2. 오일 스캘핑 지속 수익 -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="index">2</span>
+            오일 스캘핑으로 ‘지속적으로’ 수익 쌓는 법
+          </div>
+          <div class="card-sub">
+            감으로 하면 100% 망한다. 규칙·손절·타점이 완전히 고정된 상태에서만 계좌가 산다.
+          </div>
+        </div>
+
+        <p>
+          스캘핑은 <strong>감으로 하는 매매가 아니라, 미리 정해둔 규칙을 반복 실행하는 게임.</strong><br />
+          지속적으로 돈 버는 사람은 <strong>규칙 · 손절 · 타점</strong>이 완전히 고정돼 있다.
+        </p>
+
+        <!-- ① 하루 최대 손절 -->
+        <h3 class="card-section-title">
+          <span class="emoji">🔥</span>
+          ① 하루 목표보다 ‘하루 최대 손절 한도’를 먼저 설정
+        </h3>
+        <p><strong>프로 스캘퍼 공식:</strong></p>
+        <ul>
+          <li>하루 최대 손실: <strong>계좌의 -1% ~ -2%</strong></li>
+          <li>해당 수치 도달하면 <strong>무조건 종료</strong></li>
+          <li>손실 이후 <strong>감정 진입 절대 금지</strong></li>
+        </ul>
+        <p>👉 이거 하나만 지켜도 <strong>계좌가 한 번에 터지는 일은 거의 없다.</strong></p>
+
+        <!-- ② 손익비 -->
+        <h3 class="card-section-title">
+          <span class="emoji">🔥</span>
+          ② 1~5틱 먹으려는 스캘핑 금지 (최소 10틱 이상)
+        </h3>
+        <ul>
+          <li>기본 익절: <strong>10~20틱</strong></li>
+          <li>잘 터지면: <strong>30~60틱 홀딩</strong></li>
+          <li>손절: <strong>5~10틱</strong></li>
+        </ul>
+        <p>
+          👉 <strong>손익비 1:2만 만들어도 스캘핑은 구조적으로 돈이 된다.</strong><br />
+          (특히 micro의 경우 수수료 비중이 커서, Mini보다 <strong>손익비를 더 길게</strong> 가져가는 걸 추천)
+        </p>
+
+        <!-- ③ 추세 없을때 -->
+        <h3 class="card-section-title">
+          <span class="emoji">🔥</span>
+          ③ 추세 없을 때는 거래하지 않는다
+        </h3>
+        <p><strong>스캘퍼들의 금기:</strong></p>
+        <ul>
+          <li>박스권</li>
+          <li>1분봉 봉 크기 3틱 이하</li>
+          <li>변동성 죽는 시간대</li>
+        </ul>
+        <p>👉 <strong>“좋은 움직임 없는 장”에서는 무조건 쉬는 것이 수익.</strong></p>
+
+        <!-- ④ 진입자리 고정 -->
+        <h3 class="card-section-title">
+          <span class="emoji">🔥</span>
+          ④ 진입 자리가 ‘정해져’ 있어야 한다 (느낌 진입 금지)
+        </h3>
+        <p><strong>스캘핑에서 통하는 자리들:</strong></p>
+        <ul>
+          <li>전고 / 전저 돌파 후 리테스트</li>
+          <li>1분 EMA 9/20 눌림</li>
+          <li>VWAP 이탈 → 되돌림</li>
+          <li>강한 양봉/음봉 2개 연속 후 끊어지는 자리</li>
+          <li>재고 발표 직후 첫 1분봉 방향</li>
+        </ul>
+        <p>
+          👉 이 5~7개 자리만 반복하면 된다.<br />
+          👉 차트는 <strong>“찾는 게임”이 아니라 “기다리는 게임”.</strong>
+        </p>
+
+        <!-- ⑤ 손익비 고정 -->
+        <h3 class="card-section-title">
+          <span class="emoji">🔥</span>
+          ⑤ 손익비를 고정시키면 계좌가 자동으로 우상향한다
+        </h3>
+        <p><strong>이 공식만 지켜도 계좌가 수학적으로 오른다.</strong></p>
+        <ul>
+          <li>손절: <strong>8틱</strong></li>
+          <li>익절: <strong>16~20틱</strong></li>
+          <li>성공률: <strong>45~55%</strong></li>
+        </ul>
+        <p>→ 이 구조면 <strong>매달 안정적 우상향</strong>이 가능하다.</p>
+        <p>👉 스캘핑은 <strong>‘승률 싸움’이 아니라 ‘손익비 싸움’이다.</strong></p>
+
+        <!-- ⑥ 뉴스 캘린더 -->
+        <h3 class="card-section-title">
+          <span class="emoji">🔥</span>
+          ⑥ 뉴스 캘린더는 무조건 보고 진입
+        </h3>
+        <p>오일은 <strong>매크로에 민감</strong>하다. 아래 일정은 반드시 체크:</p>
+        <ul>
+          <li>EIA</li>
+          <li>API</li>
+          <li>FOMC</li>
+          <li>CPI</li>
+          <li>고용보고서</li>
+          <li>OPEC</li>
+        </ul>
+        <p>
+          👉 이 시간대엔 변동성이 미쳐서 <strong>손절 없이 들어가면 바로 계좌가 터져 버리는 구간.</strong>
+        </p>
+
+        <div class="divider"></div>
+
+        <div class="summary-list">
+          <div class="summary-box">
+            <div class="summary-title">✨ 최종 결론 ① – 스캘핑 하기 좋은 장</div>
+            <ul>
+              <li><span class="time-highlight">16:00–20:00</span> 유럽 + 미국 프리마켓</li>
+              <li><span class="time-highlight">22:00–23:30</span> 뉴욕 오픈</li>
+              <li><span class="time-highlight">00:30</span> EIA 원유재고</li>
+              <li><span class="time-highlight">05:30</span> API 재고</li>
+            </ul>
+            <p style="margin-top:6px;">
+              👉 <strong>“거의 여기서만 돈 벌면 된다.”</strong>
+            </p>
+          </div>
+          <div class="summary-box">
+            <div class="summary-title">✨ 최종 결론 ② – 꾸준히 수익 쌓는 구조</div>
+            <ul>
+              <li>손절 고정 (하루 최대 손실 % 포함)</li>
+              <li>손익비 고정 (최소 1:2 이상)</li>
+              <li>자리 고정 (정해진 패턴만 반복)</li>
+              <li>감정 금지 (루틴 깨지는 순간 바로 종료)</li>
+            </ul>
+            <p style="margin-top:6px;">
+              👉 특히 <strong>1:2 손익비 구조</strong>만 고정해도<br />
+              장기적으로 계좌는 자동으로 우상향한다.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Mini / Micro 손익 & 승률 & 누적 그래프 -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="index">3</span>
+            Mini / Micro 손익 구조 & 승률별 기대 수익
+          </div>
+          <div class="card-sub">
+            키움 선물 수수료 기준으로, 손익비 1:2 스캘핑이 승률에 따라 계좌에 어떤 영향을 주는지 숫자로 보는 구간.
+          </div>
+        </div>
+
+        <p>
+          <strong>가정:</strong> 익절 20틱 / 손절 10틱 / 손익비 1:2 고정.<br />
+          키움 기준 수수료는 <strong>Mini: 왕복 $5</strong>, <strong>Micro: 왕복 $2</strong>,<br />
+          1틱 가치는 <strong>Mini: $10</strong>, <strong>Micro: $1</strong> 으로 두고 기대 수익을 계산했다.
+        </p>
+
+        <div class="ev-grid">
+          <!-- Mini 표 -->
+          <div class="ev-box">
+            <div class="ev-title">Mini (1틱 = $10, 왕복 수수료 $5)</div>
+            <table class="ev-table">
+              <thead>
+                <tr>
+                  <th>승률</th>
+                  <th>익절</th>
+                  <th>손절</th>
+                  <th>기대수익 / 1트레이드</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>45%</td>
+                  <td>+20틱 = +$200</td>
+                  <td>-10틱 = -$100</td>
+                  <td>+<strong>$30</strong></td>
+                </tr>
+                <tr>
+                  <td>50%</td>
+                  <td>+20틱 = +$200</td>
+                  <td>-10틱 = -$100</td>
+                  <td>+<strong>$45</strong></td>
+                </tr>
+                <tr>
+                  <td>55%</td>
+                  <td>+20틱 = +$200</td>
+                  <td>-10틱 = -$100</td>
+                  <td>+<strong>$60</strong></td>
+                </tr>
+                <tr>
+                  <td>60%</td>
+                  <td>+20틱 = +$200</td>
+                  <td>-10틱 = -$100</td>
+                  <td>+<strong>$75</strong></td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="ev-note">
+              Mini는 손익비 1:2 구조만 유지하면 <strong>승률 45%부터 이미 +EV.</strong><br />
+              승률 50%면 매매 10번에 기대값 기준 <strong>+$450</strong>.
+            </p>
+          </div>
+
+          <!-- Micro 표 -->
+          <div class="ev-box">
+            <div class="ev-title">Micro (1틱 = $1, 왕복 수수료 $2)</div>
+            <table class="ev-table">
+              <thead>
+                <tr>
+                  <th>승률</th>
+                  <th>익절</th>
+                  <th>손절</th>
+                  <th>기대수익 / 1트레이드</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>45%</td>
+                  <td>+20틱 = +$20</td>
+                  <td>-10틱 = -$10</td>
+                  <td>+<strong>$1.5</strong></td>
+                </tr>
+                <tr>
+                  <td>50%</td>
+                  <td>+20틱 = +$20</td>
+                  <td>-10틱 = -$10</td>
+                  <td>+<strong>$3</strong></td>
+                </tr>
+                <tr>
+                  <td>55%</td>
+                  <td>+20틱 = +$20</td>
+                  <td>-10틱 = -$10</td>
+                  <td>+<strong>$4.5</strong></td>
+                </tr>
+                <tr>
+                  <td>60%</td>
+                  <td>+20틱 = +$20</td>
+                  <td>-10틱 = -$10</td>
+                  <td>+<strong>$6</strong></td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="ev-note">
+              Micro도 구조는 같지만, 수수료 비중 때문에 <strong>실제 남는 금액이 많이 줄어든다.</strong><br />
+              실전 수익 쌓기용은 Mini, <strong>연습·감각 잡기는 Micro</strong>로 구분하는 게 좋다.
+            </p>
+          </div>
+        </div>
+
+        <!-- 승률 시나리오 설명 -->
+        <div class="scenario-list">
+          <div class="scenario-box">
+            <strong>승률 45% – “살아남는 구조”</strong><br />
+            손익비 1:2를 끝까지 유지하면, 손익은 이미 플러스.<br />
+            <strong>“진입 타점만 안 망가지면, 계좌가 마이너스로 계속 흘러가진 않는다.”</strong>
+          </div>
+          <div class="scenario-box">
+            <strong>승률 50% – “계좌가 우상향하기 시작”</strong><br />
+            Mini 기준 1회 +$45 기대값.<br />
+            매매 20번이면 기대값 기준 <strong>+$900</strong> 수준으로 우상향.
+          </div>
+          <div class="scenario-box">
+            <strong>승률 55% – “스스로 연금 만드는 구간”</strong><br />
+            Mini 기준 +$60 / 트레이드.<br />
+            하루 5트레이드만 해도 기대값 <strong>+$300</strong> 수준.
+          </div>
+          <div class="scenario-box">
+            <strong>승률 60% – “고수 스캘퍼 레벨”</strong><br />
+            Mini 기준 +$75 / 트레이드.<br />
+            <strong>“손익비 고정 + 승률 60%”</strong>면, 레버리지만 조절해도 되는 단계.
+          </div>
+        </div>
+
+        <!-- 누적 PnL 그래프 -->
+        <div class="chart-wrap">
+          <div class="chart-header">
+            <div class="chart-title">Mini 기준 승률별 기대 누적 PnL (익절 20틱 / 손절 10틱)</div>
+            <div class="chart-legend">
+              <span class="legend-item">
+                <span class="legend-color w45"></span>45%
+              </span>
+              <span class="legend-item">
+                <span class="legend-color w50"></span>50%
+              </span>
+              <span class="legend-item">
+                <span class="legend-color w55"></span>55%
+              </span>
+              <span class="legend-item">
+                <span class="legend-color w60"></span>60%
+              </span>
+            </div>
+          </div>
+          <canvas id="equityChart" height="220"></canvas>
+          <p class="ev-note">
+            그래프는 <strong>“기대값 기준” 누적 PnL</strong>을 보여준다.<br />
+            같은 패턴(익절 20틱 / 손절 10틱 / 수수료 고정)이라도 승률이 5%씩 올라갈 때마다
+            <strong>기울기(수익 속도)가 얼마나 달라지는지</strong> 한 번에 볼 수 있다.
+          </p>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <script>
+    (function () {
+      const canvas = document.getElementById("equityChart");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+
+      // Mini 기준 기대값 (EV) / 1트레이드
+      const evMap = {
+        "45": 30,
+        "50": 45,
+        "55": 60,
+        "60": 75,
+      };
+
+      const colors = {
+        "45": "#f97373",
+        "50": "#38bdf8",
+        "55": "#22c55e",
+        "60": "#eab308",
+      };
+
+      const trades = 20; // 20트레이드까지 표시
+      const datasets = {};
+
+      Object.keys(evMap).forEach((wr) => {
+        const ev = evMap[wr];
+        const data = [];
+        for (let i = 0; i <= trades; i++) {
+          data.push({ x: i, y: i * ev });
+        }
+        datasets[wr] = data;
+      });
+
+      // y 최댓값 찾기
+      let maxY = 0;
+      Object.values(datasets).forEach((arr) => {
+        arr.forEach((p) => {
+          if (p.y > maxY) maxY = p.y;
+        });
+      });
+      // 여유분
+      maxY = Math.ceil(maxY / 100) * 100;
+
+      const paddingLeft = 40;
+      const paddingRight = 10;
+      const paddingTop = 10;
+      const paddingBottom = 24;
+
+      const width = canvas.width;
+      const height = canvas.height;
+      const plotWidth = width - paddingLeft - paddingRight;
+      const plotHeight = height - paddingTop - paddingBottom;
+
+      function xToPx(x) {
+        return paddingLeft + (x / trades) * plotWidth;
+      }
+
+      function yToPx(y) {
+        return paddingTop + plotHeight - (y / maxY) * plotHeight;
+      }
+
+      // 배경
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = "#020617";
+      ctx.fillRect(0, 0, width, height);
+
+      // 그리드 & 축
+      ctx.strokeStyle = "rgba(148,163,184,0.35)";
+      ctx.lineWidth = 1;
+
+      // y축 그리드 (4등분)
+      ctx.font = "10px -apple-system, system-ui, sans-serif";
+      ctx.fillStyle = "#9ca3af";
+      ctx.textAlign = "right";
+      ctx.textBaseline = "middle";
+      for (let i = 0; i <= 4; i++) {
+        const yVal = (maxY / 4) * i;
+        const yPx = yToPx(yVal);
+        ctx.beginPath();
+        ctx.moveTo(paddingLeft, yPx);
+        ctx.lineTo(width - paddingRight, yPx);
+        ctx.stroke();
+        ctx.fillText("$" + yVal, paddingLeft - 4, yPx);
+      }
+
+      // x축 그리드 (5단위)
+      ctx.textAlign = "center";
+      ctx.textBaseline = "top";
+      for (let i = 0; i <= trades; i += 5) {
+        const xPx = xToPx(i);
+        ctx.beginPath();
+        ctx.moveTo(xPx, paddingTop);
+        ctx.lineTo(xPx, paddingTop + plotHeight);
+        ctx.stroke();
+        ctx.fillText(i.toString(), xPx, paddingTop + plotHeight + 4);
+      }
+
+      // 각 승률 라인 그리기
+      Object.keys(datasets).forEach((wr) => {
+        const data = datasets[wr];
+        ctx.beginPath();
+        ctx.strokeStyle = colors[wr] || "#38bdf8";
+        ctx.lineWidth = 1.6;
+
+        data.forEach((p, idx) => {
+          const x = xToPx(p.x);
+          const y = yToPx(p.y);
+          if (idx === 0) {
+            ctx.moveTo(x, y);
+          } else {
+            ctx.lineTo(x, y);
+          }
+        });
+        ctx.stroke();
+      });
+    })();
+  </script>
+</body>
+</html>

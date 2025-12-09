@@ -1,0 +1,30 @@
+[
+  {
+    "title": "ETF가 뭐냐부터 차근차근",
+    "summary": "ETF의 구조, 장단점, 기초 개념을 정리한 노트.",
+    "file": "fundamentals/etf-basics.html",
+    "level": "fundamentals",
+    "tags": ["ETF", "기초", "인덱스"]
+  },
+  {
+    "title": "VIX·금리·달러 인덱스 같이 보는 법",
+    "summary": "대표 거시 지표 3개를 한 화면에서 읽는 기준을 정리.",
+    "file": "applied/macro-vix-dxy-rate.html",
+    "level": "applied",
+    "tags": ["VIX", "DXY", "금리"]
+  },
+  {
+    "title": "SaaS 기업 밸류에이션 체크리스트",
+    "summary": "성장주·SaaS 기업을 고를 때 보는 지표와 질문 리스트.",
+    "file": "advanced/saas-valuation-check.html",
+    "level": "advanced",
+    "tags": ["기업분석", "성장주", "밸류에이션"]
+  },
+  {
+    "title": "투자 기준 20가지 – 좋은 기업을 한눈에 고르는 법",
+    "summary": "기업 필터링부터 성장·밸류·재무까지 한 번에 훑는 체크리스트.",
+    "file": "applied/good-company-20.html",
+    "level": "applied",
+    "tags": ["기업분석", "체크리스트", "기초필터"]
+  }
+]
